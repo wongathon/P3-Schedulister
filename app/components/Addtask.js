@@ -1,6 +1,9 @@
-import React, { Component } from "react";
+import React from 'react'
 
-//import other components
+// This is a stateless functional component - no states just props
+// 'this' keyword will not be available so just need 'props'
+// also render() method is not necessary to display UI
+function AddTask (props) {
 
 class Addtask extends Component {
   constructor() {
@@ -107,3 +110,4 @@ class Addtask extends Component {
 }
 
 export default Addtask;
+
