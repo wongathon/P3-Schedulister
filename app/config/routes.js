@@ -1,21 +1,22 @@
-import React from "react";
-import { Route, IndexRoute, Router, browserHistory } from "react-router";
+import React from 'react'
+import { Route, IndexRoute } from 'react-router'
+import Template from '../components/Main'
+import Home from '../components/Todohome'
+import AddTask from '../components/addtask'
+import Admin from '../components/Admin'
+import UserAdmin from '../components/UserAdmin'
 
-import Main from '../components/Main';
-import Todohome from '../components/Todohome';
-import Admin from '../components/Admin';
-import Addtask from '../components/Addtask';
-import UserAdmin from '../components/UserAdmin';
-
-const routes = (
-  <Router history={broserHisotry}>
-    <Route path="/" component={Main}>
-      <Route path="admin" component={Admin} />
-      <Route path="add" component={Addtask} />
-      <Route path="user" component={UserAdmin} />
-      <IndexRoute component={Todohome} />
+const createRoutes = () => {
+  return (
+    <Route path="/" component={Template}>
+      <IndexRoute component={Home} />
+      <Route path="/addtask" component={AddTask} />
+      <Route path="/admin" component={Admin} />
+      <Route path="/useradmin" component={UserAdmin} />
     </Route>
-  </Router>
-);
+  )
+}
 
-export default routes;
+const Navigation = createRoutes()
+
+export default Navigation

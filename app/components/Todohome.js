@@ -1,55 +1,16 @@
-import React, { Component } from "react";
-import TodoItem from "./sub/MainPanel";
-import Schedule from "./sub/Schedule";
-import API from "../utils/API";
+import React from 'react'
 
-class Todohome extends Component {
-  constructor() {
-    super();
-    this.state = { 
-      todos: [],
-      todoSchedule: []
-    };
+// This is a stateless functional component - no states just props
+// 'this' keyword will not be available so just need 'props'
+// also render() method is not necessary to display UI
+function Home (props) {
 
-    this.getTasks = this.getTasks.bind(this);
-  }
-
-  componentDidMount() {
-    this.getTasks();
-  }
-
-  getTasks() {
-    //build axios methods
-    API.getTasks().then((res) => {
-      this.setState({ todos: res.data });
-    });
-  }
-
-  getSchedule() {
-    API.getSchedule().then((res) => {
-      this.setState({ todoSchedule: res.data})
-    });
-  }
-
-  render() {
     return (
-      <div className="container">
-        <div className="row">
-          <TodoPanel
-            tasks={this.state.todos}
-            getTasks={this.getTasks}
-          />
-        </div>
-        <hr />
-        <div className="row">
-          <Schedule 
-            tasks={this.state.todoSchedule}
-            getSchedule={this.getSchedule}
-          />
-        </div>
+      <div className="background-1">
+        <h1>Home Page - TodoHome</h1>
       </div>
-    );
-  }
+    )
+  
 }
 
-export default Todohome;
+export default Home;
