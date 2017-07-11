@@ -13,14 +13,19 @@ var taskSchema = new Schema({
     type: Boolean,
     default: true //set to false if date or recurs
   },
-  
-  date: Date, //set START DATE of recurrance, or if not recurring, set ONE TIME DATE
-  recurs: String,  //will use checkboxes to set. If NULL, it is ONE TIME
 
   taskCreated: {
     type: Date,
     default: Date.now
-  }
+  },
+
+  taskDate: Date, //set START DATE of recurrance, or if not recurring, set ONE TIME DATE
+  nextDate: Date, //saves next date for recurrence, NULL if empty 
+  recurAny: Boolean,//indicate is if recurrs
+  recurAmount: Double,//amount of time between recurrences.
+  recurFrequency: String,  // values daily, monthly, weekly. will use checkboxes to set. If NULL, it is ONE TIME
+}
+  
 });
 
 var Task = mongoose.model('Task', taskSchema);
