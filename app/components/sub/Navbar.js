@@ -1,8 +1,8 @@
 // Include React
 import React from "react"
-import { Link } from 'react-router'
+import { Route, Link } from 'react-router'
 import Home from '../Todohome'
-import AddTask from '../addtask'
+import AddTask from '../Addtask'
 import Admin from '../Admin'
 import UserAdmin from '../UserAdmin'
 
@@ -22,4 +22,4 @@ const Navbar = () => {
   
 }
 
-export default Navbar;
+export default Navbar
