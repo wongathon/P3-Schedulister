@@ -22,9 +22,8 @@ var taskSchema = new Schema({
   taskDate: Date, //set START DATE of recurrance, or if not recurring, set ONE TIME DATE
   nextDate: Date, //saves next date for recurrence, NULL if empty 
   recurAny: Boolean,//indicate is if recurrs
-  recurAmount: Double,//amount of time between recurrences.
-  recurFrequency: String,  // values daily, monthly, weekly. will use checkboxes to set. If NULL, it is ONE TIME
-}
+  recurAmount: String,//amount of time between recurrences.
+  recurFrequency: String  // values daily, monthly, weekly. will use checkboxes to set. If NULL, it is ONE TIME
   
 });
 

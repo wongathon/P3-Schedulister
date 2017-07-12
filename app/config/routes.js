@@ -1,10 +1,11 @@
-import React from 'react'
-import { Route, IndexRoute } from 'react-router'
-import Template from '../components/Main'
-import Home from '../components/Todohome'
-import AddTask from '../components/addtask'
-import Admin from '../components/Admin'
-import UserAdmin from '../components/UserAdmin'
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
+
+import Template from '../components/Main';
+import Home from '../components/Todohome';
+import AddTask from '../components/Addtask';
+import Admin from '../components/Admin';
+import UserAdmin from '../components/UserAdmin';
 
 const createRoutes = () => {
   return (
@@ -15,8 +16,8 @@ const createRoutes = () => {
       <Route path="/useradmin" component={UserAdmin} />
     </Route>
   )
-}
+};
 
-const Navigation = createRoutes()
+const Navigation = createRoutes();
 
-export default Navigation
+export default Navigation;

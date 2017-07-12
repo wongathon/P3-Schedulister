@@ -31,7 +31,7 @@ class Main extends Component {
 }
 
 // Export the component back for use in other files
-export default Main
+export default Main;
 
 
 
