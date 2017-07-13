@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //api called by components. 
-//CALLS ROUTES in api Routes
+//CALLS ROUTES in api Routes via URL path. 
 const API = {
 
   getTasks: function() {

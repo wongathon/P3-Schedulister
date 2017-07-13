@@ -13,6 +13,7 @@ module.exports = {
       query = (req.params.id ? {_id: req.params.id} : {})
     );
 
+    //look at req.query find function for 
     Task.find(query)
       .then( doc => { res.json(doc) 
       }).catch( err => { res.json(err)
