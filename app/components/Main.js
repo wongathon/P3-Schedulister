@@ -22,7 +22,7 @@ class Main extends Component {
           </div>
           
           <div className="col-md-9">
-          {this.props.children}
+            {this.props.children}
           </div>
         </div>
       </div>

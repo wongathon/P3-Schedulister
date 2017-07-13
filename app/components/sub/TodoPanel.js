@@ -1,6 +1,7 @@
 import React, { Component } from "react";
+import TodoItem from "./TodoItem";
 
-class Todopanel extends Component {
+class TodoPanel extends Component {
   // Defining a constructor method where we set our initial state
   constructor() {
     super();
@@ -23,9 +24,9 @@ class Todopanel extends Component {
     
     // Mapping and through our activeTodos and returning one task
     return activeTodos.map(item => (
-      <ListItem key={item._id}>
+      <TodoItem key={item._id}>
         {item.task}
-      </ListItem>
+      </TodoItem>
       ));
   }
   render() {
@@ -38,15 +39,9 @@ class Todopanel extends Component {
           
         <div className="panel-body">
           <ul className="list-group">
-            <li className="list-group-item"
-            >
-            <i
-                  onClick={this.completedTodos()}
-                  style={styles.completedStyle}
-                  className={!this.state.todos.active ? "fa fa-square-o" : "fa fa-square gold" }
-                  aria-hidden="true"
-                />
-            {this.renderTodos()}</li>
+            <li className="list-group-item">
+            {this.renderTodos()}
+            </li>
         </ul>
       </div>
     </div>
@@ -55,6 +50,6 @@ class Todopanel extends Component {
 }
 
 // Exporting this component as the default (only) export
-export default Todopanel;
+export default TodoPanel;
 
 

@@ -16,7 +16,7 @@ class Home extends Component {
   }
 
   componentDidMount() {
-    this.getTasks();
+    //this.getTasks();
   }
 
   getTasks() {
@@ -53,4 +53,4 @@ class Home extends Component {
   }
 }
 
-export default Home
+export default Home;

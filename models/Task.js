@@ -6,7 +6,7 @@ var taskSchema = new Schema({
   text: {
     type: String,
     trim: true,
-    required: "Please enter a task!"
+    required: true
   },
 
   active: {
@@ -19,12 +19,29 @@ var taskSchema = new Schema({
     default: Date.now
   },
 
-  taskDate: Date, //set START DATE of recurrance, or if not recurring, set ONE TIME DATE
-  nextDate: Date, //saves next date for recurrence, NULL if empty 
-  recurAny: Boolean,//indicate is if recurrs
-  recurAmount: String,//amount of time between recurrences.
-  recurFrequency: String  // values daily, monthly, weekly. will use checkboxes to set. If NULL, it is ONE TIME
+  //set START DATE of recurrance, or if not recurring, set ONE TIME DATE
+  taskDate: Date, 
+
+  //indicate is if recurrs
+  recurAny: {
+    type: Boolean,
+    default: false
+  },
+
+  //saves next date for recurrence, otherwise no. 
+  //auto-calculating, or should be. 
+  nextDate: {
+    type: Date
+  }, 
+
+ // values daily, monthly, weekly. will use checkboxes to set. If NULL, it is ONE TIME
+  recurFrequency: String, 
+
+  //amount of time between recurrences.
+  recurAmount: Number
   
+
+    
 });
 
 var Task = mongoose.model('Task', taskSchema);

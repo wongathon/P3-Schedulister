@@ -1,11 +1,11 @@
-import Task from "../models/Task"
+var Task = require ("../models/Task");
 
 //uses api routes
 //interacts with DB. 
 module.exports = {
   //index
   index: (req, res) => {
-    const query;
+    var query;
 
     req.query ? (
       query = req.query 

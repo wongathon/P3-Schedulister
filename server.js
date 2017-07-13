@@ -3,6 +3,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var routes = require('./routes/routes');
 
 // Require Schemas in 'models' folder
 var Task = require("./models/Task");

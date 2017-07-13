@@ -2,11 +2,6 @@
 import React from "react"
 import { Route, Link } from 'react-router'
 
-import Home from '../Todohome'
-import AddTask from '../Addtask'
-import Admin from '../Admin'
-import UserAdmin from '../UserAdmin'
-
 const Navbar = () => {
     return (
       <div>
