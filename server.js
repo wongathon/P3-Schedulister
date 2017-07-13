@@ -22,7 +22,9 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 app.use(express.static("./public"));
 
-// -------------------------------------------------
+app.use("/", routes);
+
+// Mongo Setup--------------------------------------
 if (process.env.MONGODB_URI) {
   mongoose.connect(process.env.MONGODB_URI)
 } else {
@@ -40,9 +42,6 @@ db.once("open", function() {
 });
 
 // "/" Route. This will redirect the user to our rendered React application
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/public/index.html");
-});
 
 // Listener
 app.listen(PORT, function() {

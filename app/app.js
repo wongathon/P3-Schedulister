@@ -5,6 +5,6 @@ import Navigation from './config/routes'
 
 ReactDOM.render(
 	<Router history={hashHistory}
-	routes={Navigation}
+	 routes={Navigation}
 	/>, 
 	document.getElementById('root'));

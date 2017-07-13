@@ -31,10 +31,17 @@ class AddTask extends Component {
 
   handleSubmit(event){
     event.preventDefault();
-
     var taskObj = this.state;
-
-    console.log(taskObj);
+    //add this.props.parent method in Admin tab. 
+    API.saveTask(taskObj).then();
+    //console.log(taskObj);
+    this.setState({
+      desc : "",
+      recurs: "",
+      recurEvery: "",
+      repeatEvery: "",
+      date: moment()
+    });
     //execute axios add task w/API. 
   } 
 
