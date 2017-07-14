@@ -12,6 +12,7 @@ class TodoItem extends Component {
     return (
       <li className="list-group-item">
          <button
+            className="btn btn-success"
             onClick={() => this.completeTodo(todo)}
             style={todo.active ? style.todo : style.done } 
           />
@@ -23,10 +24,11 @@ class TodoItem extends Component {
 
 const style = {
   todo: {
-    cursor: "pointer"
+    cursor: "pointer",
+    color: "green"
   },
   done: {
-    color: "grey"
+    color: "red"
   }
 };
 
