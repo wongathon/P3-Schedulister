@@ -7,21 +7,26 @@ class Schedule extends Component {
  renderScheduledTasks() {
     // Getting an array of scheduled tasks
     const tasks = this.props.todoSchedule;
-    const scheduled = tasks.filter(item => item.nextDate);
-
    // Mapping through our active scheduled tasks
-    return scheduled.map(item => (
+
+   if (tasks) {
+    return tasks.map(item => (
       <ScheduleItem 
         item={item}
         key={item._id}
       />
-    ));
+    )) 
+    } else {
+      return (
+        <p>nothing yet</p>
+      );
+    }
   }
 
  render() {
     // Running {this.renderScheduledTasks} to return the result of the method
     return (
-      <div className="panel panel-default">
+      <div className="panel panel-danger">
         <div className="panel-heading">
             <h3 className="panel-title">Schedule</h3>
         </div>

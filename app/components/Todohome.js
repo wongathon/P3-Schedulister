@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TodoItem from "./sub/TodoItem";
-//import Schedule from "./sub/Schedule";
+import Schedule from "./sub/Schedule";
 import TodoPanel from "./sub/TodoPanel";
 import API from "../utils/api";
 
@@ -18,10 +18,10 @@ class Home extends Component {
 
   componentDidMount() {
     this.getTasks();
+    this.getSchedule();
   }
 
   componentDidUpdate() {
-    this.getSchedule();
   }
 
   getTasks() {
@@ -33,9 +33,11 @@ class Home extends Component {
   }
 
   getSchedule() {
-    API.getSchedule().then((res) => {
+    API.getTasksType(
+        { nextDate: { $exists: true } }
+      ).then((res) => {
       console.log("schedule:", res.data);
-      this.setState({ todoSchedule: res.data})
+      this.setState({ todoSchedule: res.data })
     });
   }
 
@@ -52,10 +54,12 @@ class Home extends Component {
         </div>
         <hr />
         <div className="row">
-          {/*<Schedule 
-            tasks={this.state.todoSchedule}
-            getSchedule={this.getSchedule}
-          />*/}
+          <div className="col-sm-8 col-md-6"> 
+            <Schedule 
+              tasks={this.state.todoSchedule}
+              getSchedule={this.getSchedule}
+            />
+          </div>
         </div>
       </div>
     );

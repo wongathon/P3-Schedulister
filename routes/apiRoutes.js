@@ -2,7 +2,7 @@ express = require("express");
 
 var taskControl = require("../controllers/taskControl");
 
-//path/requests to call ORM methods in task control. 
+//path/requests to call ORM methods in controller. 
 var router = new express.Router();
 //get all tasks or specific for edit page info
 router.get("/tasks/:id?", taskControl.index);
