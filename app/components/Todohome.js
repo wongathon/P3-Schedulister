@@ -43,10 +43,12 @@ class Home extends Component {
     return (
       <div className="container">
         <div className="row">
-          <TodoPanel
-            tasks={this.state.tasks}
-            getTasks={this.getTasks}
-          />
+          <div className="col-sm-8 col-md-6">
+            <TodoPanel
+              tasks={this.state.tasks}
+              getTasks={this.getTasks}
+            />
+          </div>
         </div>
         <hr />
         <div className="row">
