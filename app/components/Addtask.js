@@ -64,6 +64,7 @@ class AddTask extends Component {
       console.log("Save task res data:", res.data);
     }).then(
       alert("Task submitted! Change me to a modal you peasant!"),
+      //https://stackoverflow.com/questions/41221633/how-to-submit-form-component-in-modal-dialogue-using-antd-react-component-librar
       this.props.router.push('/')
     );
   } 

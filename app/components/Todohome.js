@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import TodoItem from "./sub/TodoItem";
-import Schedule from "./sub/Schedule";
+//import Schedule from "./sub/Schedule";
 import TodoPanel from "./sub/TodoPanel";
 import API from "../utils/api";
 
@@ -8,26 +8,33 @@ class Home extends Component {
   constructor() {
     super();
     this.state = { 
-      todos: [],
+      tasks: [],
       todoSchedule: []
     };
 
     this.getTasks = this.getTasks.bind(this);
+    this.getSchedule = this.getSchedule.bind(this);
   }
 
   componentDidMount() {
-    //this.getTasks();
+    this.getTasks();
+  }
+
+  componentDidUpdate() {
+    this.getSchedule();
   }
 
   getTasks() {
     //build axios methods
     API.getTasks().then((res) => {
-      this.setState({ todos: res.data });
+      console.log("getTasks:", res.data);
+      this.setState({ tasks: res.data });
     });
   }
 
   getSchedule() {
     API.getSchedule().then((res) => {
+      console.log("schedule:", res.data);
       this.setState({ todoSchedule: res.data})
     });
   }
@@ -37,16 +44,16 @@ class Home extends Component {
       <div className="container">
         <div className="row">
           <TodoPanel
-            tasks={this.state.todos}
+            tasks={this.state.tasks}
             getTasks={this.getTasks}
           />
         </div>
         <hr />
         <div className="row">
-          <Schedule 
+          {/*<Schedule 
             tasks={this.state.todoSchedule}
             getSchedule={this.getSchedule}
-          />
+          />*/}
         </div>
       </div>
     );
