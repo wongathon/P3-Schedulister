@@ -3,7 +3,6 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
-
 var routes = require('./routes/routes');
 
 // Require Schemas in 'models' folder
@@ -24,12 +23,13 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 app.use(express.static("./public"));
 
+app.use("/", routes);
 
 // -------------------------------------------------
 if (process.env.MONGODB_URI) {
   mongoose.connect(process.env.MONGODB_URI)
 } else {
-  mongoose.connect("mongodb://localhost/todo-extreme")
+  mongoose.connect("mongodb://localhost/nyt")
 }
 
 
