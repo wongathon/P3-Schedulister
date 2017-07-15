@@ -7,4 +7,4 @@ ReactDOM.render(
 	<Router history={hashHistory}
 	 routes={Navigation}
 	/>, 
-	document.getElementById('root'));
+	document.getElementById('root')); 
