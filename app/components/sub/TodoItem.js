@@ -4,7 +4,7 @@ import API from '../../utils/api';
 class TodoItem extends Component {
 
   completeTodo(task) {
-    API.taskComplete(task).then(this.props.getTodos);
+    API.taskComplete(task).then(this.props.getTasks);
   }
 
   render() {

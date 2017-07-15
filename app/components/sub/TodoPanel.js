@@ -13,7 +13,7 @@ class TodoPanel extends Component {
         <TodoItem 
           key={task._id} 
           todo={task} 
-          getTodos={this.props.getTodos} 
+          getTasks={this.props.getTasks} 
         />
       ));
   }
