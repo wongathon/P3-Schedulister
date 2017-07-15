@@ -12,9 +12,8 @@ const API = {
   // .get("api/task", query??)
   //where is the best place to conditionalize searches? 
   getTasksType: function(query) {
-    return axios.get("/api/tasks", {
-      params: { query: query }
-    });
+    return axios.get("/api/tasks", { query: query }
+    );
   },
   //get active tasks
   //get weekly/daily recurring tasks

@@ -6,10 +6,11 @@ class Schedule extends Component {
 
  renderScheduledTasks() {
     // Getting an array of scheduled tasks
-    const tasks = this.props.todoSchedule;
+    const { tasks } = this.props;
    // Mapping through our active scheduled tasks
 
    if (tasks) {
+    console.log(tasks);
     return tasks.map(item => (
       <ScheduleItem 
         item={item}

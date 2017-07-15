@@ -5,7 +5,6 @@ class TodoPanel extends Component {
 
   renderTodos() {
     // Getting a filtered array of items. Boild tasks down to todos. 
-    
     const activeTodos = this.props.tasks.filter(item => item.active === true);
     
     //this.setState({ todos: activeTodos });
