@@ -1,16 +1,69 @@
-import React from 'react'
+import React, { Component } from "react";
+import TodoItem from "./sub/TodoItem";
+import Schedule from "./sub/Schedule";
+import TodoPanel from "./sub/TodoPanel";
+import API from "../utils/api";
 
-// This is a stateless functional component - no states just props
-// 'this' keyword will not be available so just need 'props'
-// also render() method is not necessary to display UI
-function Home (props) {
+class Home extends Component {
+  constructor() {
+    super();
+    this.state = { 
+      tasks: [],
+      todoSchedule: []
+    };
 
+    this.getTasks = this.getTasks.bind(this);
+    this.getSchedule = this.getSchedule.bind(this);
+  }
+
+  componentDidMount() {
+    this.getTasks();
+    this.getSchedule();
+  }
+
+  componentDidUpdate() {
+  }
+
+  getTasks() {
+    //build axios methods
+    API.getTasks().then((res) => {
+      console.log("getTasks:", res.data);
+      this.setState({ tasks: res.data });
+    });
+  }
+
+  getSchedule() {
+    API.getTasksType(
+        { nextDate: { $exists: true } }
+      ).then((res) => {
+      console.log("schedule:", res.data);
+      this.setState({ todoSchedule: res.data })
+    });
+  }
+
+  render() {
     return (
-      <div className="background-1">
-        <h1>Home Page - TodoHome</h1>
+      <div className="container">
+        <div className="row">
+          <div className="col-sm-8 col-md-6">
+            <TodoPanel
+              tasks={this.state.tasks}
+              getTasks={this.getTasks}
+            />
+          </div>
+        </div>
+        <hr />
+        <div className="row">
+          <div className="col-sm-8 col-md-6"> 
+            <Schedule 
+              tasks={this.state.todoSchedule}
+              getSchedule={this.getSchedule}
+            />
+          </div>
+        </div>
       </div>
-    )
-  
+    );
+  }
 }
 
 export default Home;

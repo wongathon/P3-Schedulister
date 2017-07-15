@@ -22,7 +22,7 @@ class Main extends Component {
           </div>
           
           <div className="col-md-9">
-          {this.props.children}
+            {this.props.children}
           </div>
         </div>
       </div>
@@ -31,7 +31,7 @@ class Main extends Component {
 }
 
 // Export the component back for use in other files
-export default Main
+export default Main;
 
 
 

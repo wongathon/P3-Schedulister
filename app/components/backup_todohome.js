@@ -53,4 +53,4 @@ class Todohome extends Component {
   }
 }
 
-export default Todohome;
+export default Todohome

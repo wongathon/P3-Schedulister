@@ -1,16 +1,40 @@
-import React from 'react'
+import React, { Component } from "react";
+import TodoItem from "./TodoItem";
 
-// This is a stateless functional component - no states just props
-// 'this' keyword will not be available so just need 'props'
-// also render() method is not necessary to display UI
-function TodoPanel (props) {
+class TodoPanel extends Component {
 
-		return (
-			<div className="background-1">
-				<h1>to-do-panel</h1>
-			</div>
-		)
-	
+  renderTodos() {
+    // Getting a filtered array of items. Boild tasks down to todos. 
+    
+    const activeTodos = this.props.tasks.filter(item => item.active === true);
+    
+    //this.setState({ todos: activeTodos });
+    return activeTodos.map(task => (
+        <TodoItem 
+          key={task._id} 
+          todo={task} 
+          getTodos={this.props.getTodos} 
+        />
+      ));
+  }
+
+  render() {
+    return (
+      <div className="panel panel-success">
+        <div className="panel-heading">
+          <h3 className="panel-title">Todos</h3>
+        </div>
+        <div className="panel-body">
+          <ul className="list-group">
+            {this.renderTodos()}
+          </ul>
+        </div>
+      </div>
+    );
+  }
 }
 
+// Exporting this component as the default (only) export
 export default TodoPanel;
+
+

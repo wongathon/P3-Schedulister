@@ -6,6 +6,8 @@ var mongoose = require("mongoose");
 var mongojs = require("mongojs");
 var passport = require("passport");
 
+var routes = require('./routes/routes');
+
 // Require Schemas in 'models' folder
 var Task = require("./models/Task");
 var User = require("./models/User");
@@ -42,12 +44,25 @@ app.use('/auth', authRoutes);
 var apiRoutes = require('./passport/api');
 app.use('/api', apiRoutes);
 
-// -------------------------------------------------
+app.use("/", routes);
+// Mongo Setup--------------------------------------
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI)
+} else {
+  mongoose.connect("mongodb://localhost/nyt")
+}
+
+var db = mongoose.connection;
+
+db.on("error", function(err) {
+  console.log("Mongoose Error: ", err);
+});
+
+db.once("open", function() {
+  console.log("Mongoose connection successful.");
+});
 
 // "/" Route. This will redirect the user to our rendered React application
-app.get("/", function(req, res) {
-  res.sendFile(__dirname + "/public/index.html");
-});
 
 // Listener
 app.listen(PORT, function() {
