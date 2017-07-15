@@ -26,6 +26,12 @@ app.use(express.static("./public"));
 
 
 // -------------------------------------------------
+if (process.env.MONGODB_URI) {
+  mongoose.connect(process.env.MONGODB_URI)
+} else {
+  mongoose.connect("mongodb://localhost/todo-extreme")
+}
+
 
 var db = mongoose.connection;
 
