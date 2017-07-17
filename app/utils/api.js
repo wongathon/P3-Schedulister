@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import moment from "moment";
 //api called by components. 
 //CALLS ROUTES in api Routes via URL path. 
 const API = {
@@ -12,15 +12,13 @@ const API = {
   // .get("api/task", query??)
   //where is the best place to conditionalize searches? 
   getTasksType: function(query) {
-    return axios.get("/api/tasks", { query: query }
-    );
+    return axios.get("/api/tasks", {params: { query: query }});
   },
   //get active tasks
   //get weekly/daily recurring tasks
   //get 'date' tasks. >> Start date, task entered day, for x times
 
   saveTask: function(task) {
-    console.log("saveTask saving:", task);
     return axios.post("/api/tasks", task);
   },
 
@@ -28,9 +26,23 @@ const API = {
   //taskUpdate:
 
   taskComplete: function(task) {
-    task.active = false;
-    const { _id, active } = task;
-    return axios.patch(`/api/tasks/${_id}`, { active });
+    task.active = false;  
+    //works for d/w/m, but NOT bi-daily. 
+    if (task.recurAny === true) {
+      task.taskDate = moment(task.taskDate).clone().add(1, task.recurFrequency).format();
+      task.nextDate = moment(task.taskDate).clone().add(1, task.recurFrequency).format();
+    }
+
+    console.log("After complete:", task);
+
+    if (task.recurAny === true) {
+      const { _id, active, taskDate, nextDate } = task;
+      return axios.patch(`/api/tasks/${_id}`, {active, taskDate, nextDate});
+    } else {
+      const { _id, active } = task;
+      return axios.patch(`/api/tasks/${_id}`, { active });
+    }
+
   },
 
   deleteTask: function(id) {

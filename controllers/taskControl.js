@@ -7,6 +7,8 @@ module.exports = {
   index: (req, res) => {
     var query;
 
+    console.log("HELLOOOOOOO THERE", req.query);
+
     req.query ? (
       query = req.query 
     ) : (

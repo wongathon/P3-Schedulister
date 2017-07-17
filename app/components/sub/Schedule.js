@@ -10,7 +10,6 @@ class Schedule extends Component {
    // Mapping through our active scheduled tasks
 
    if (tasks) {
-    console.log(tasks);
     return tasks.map(item => (
       <ScheduleItem 
         item={item}
