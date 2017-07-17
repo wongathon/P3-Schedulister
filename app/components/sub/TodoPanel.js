@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import TodoItem from "./TodoItem";
-var moment = require('moment');
+import moment from 'moment';
 
 class TodoPanel extends Component {
 
   renderTodos() {
     // Getting a filtered array of items. Boild tasks down to todos. 
-    const activeTodos = this.props.tasks.filter(item => item.active === true);
+    const activeTodos = this.props.tasks.filter(item => {
+      moment().format("LL") == moment(item.taskDate).format("LL");
+    });
     
     //this.setState({ todos: activeTodos });
     return activeTodos.map(task => (
@@ -20,7 +22,7 @@ class TodoPanel extends Component {
 
   render() {
     
-    let date = Date.now()
+    let date = Date.now();
 
     return (
       <div className="panel panel-success">

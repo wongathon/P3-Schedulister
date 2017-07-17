@@ -24,7 +24,8 @@ class Admin extends Component {
 	getTasks() {
 		//build axios methods
 		API.getTasks().then((res) => {
-		this.setState({ tasks: res.data });
+			console.log(res.data);
+		 this.setState({ tasks: res.data });
 		});
 	}
 

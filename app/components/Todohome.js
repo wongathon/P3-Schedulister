@@ -28,14 +28,14 @@ class Home extends Component {
   getTasks() {
     //build axios methods
     API.getTasks().then((res) => {
-      //console.log("get Tasks: ", res.data);
+      console.log("get Tasks: ", res.data);
       this.setState({ tasks: res.data });
     });
   }
 
   getSchedule() {
     API.getTasksType(
-        { text: { $exists:true } }
+        //{ text: { $exists:true } }
       ).then((res) => {
       console.log("schedule get:", res.data);
       this.setState({ todoSchedule: res.data })
