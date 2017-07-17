@@ -97,10 +97,30 @@ class Admin extends Component {
 
 	renderScheduledTodos() {
 	    // Getting a filtered array of weekly and active items.
-	    const monthlyTodos = this.state.tasks.filter(item => item.active === true && item.recurAny === false);
+	    const scheduledTodos = this.state.tasks.filter(item => item.active === true && item.recurAny === false);
 	    
 	    //this.setState({ todos: activeTodos });
-	    return monthlyTodos.map(item => (
+	    return scheduledTodos.map(item => (
+	       <div key={item._id} style={styles.lineHeight}>
+	        <listItem>{item.text} - Scheduled: {moment(item.taskDate).format('MMMM Do YYYY')}&nbsp;&nbsp;
+	        <button className="btn btn-xs btn-primary"
+	        		onClick={this.editTask.bind(this, item)}>EDIT</button>
+	        		&nbsp;&nbsp;
+	        <button className="btn btn-xs btn-danger"
+	        		onClick={this.deleteTodos.bind(this, item._id)}
+	        		>X</button>
+	      	</listItem>
+	      	<hr/>
+	      </div>
+      ));
+	}
+
+	renderCompletedTodos() {
+	    // Getting a filtered array of weekly and active items.
+	    const completedTodos = this.state.tasks.filter(item => item.active === false);
+	    
+	    //this.setState({ todos: activeTodos });
+	    return completedTodos.map(item => (
 	       <div key={item._id} style={styles.lineHeight}>
 	        <listItem>{item.text} - Scheduled: {moment(item.taskDate).format('MMMM Do YYYY')}&nbsp;&nbsp;
 	        <button className="btn btn-xs btn-primary"
@@ -168,6 +188,17 @@ class Admin extends Component {
 	        <div className="panel-body">
 	          <ul className="list-group">
 	            {this.renderScheduledTodos()}
+	          </ul>
+	        </div>
+	      </div>
+	      <br />
+	      <div className="panel panel-default">
+	        <div className="panel-heading">
+	          <h3 className="panel-title">Completed Todos</h3>
+	        </div>
+	        <div className="panel-body">
+	          <ul className="list-group">
+	            {this.renderCompletedTodos()}
 	          </ul>
 	        </div>
 	      </div>
