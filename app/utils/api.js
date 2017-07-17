@@ -47,7 +47,11 @@ const API = {
 
   deleteTask: function(id) {
     return axios.delete(`/api/tasks/${id}`);
-  }
+  },
+
+  taskUpdate: function(task) {
+    return axios.patch(`/api/tasks/${_id}`, task);
+  },
 
 };
 
