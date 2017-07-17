@@ -6,10 +6,10 @@ const Navbar = () => {
     return (
       <div>
         <ul className="nav nav-pills nav-stacked">
-          <li><Link to='/'>Home</Link></li>
-          <li><Link to='/addtask'>Add Task</Link></li>
-          <li><Link to='/admin'>Admin</Link></li>
-          <li><Link to='/useradmin'>User Admin</Link></li>
+          <li><Link to='/'>Todos</Link></li>
+          <li><Link to='/addtask'>Add a Todo</Link></li>
+          <li><Link to='/admin'>My Todos Admin</Link></li>
+          <li><Link to='/useradmin'>My Profile</Link></li>
         </ul>
       </div>
     )
