@@ -28,7 +28,7 @@ class Schedule extends Component {
     return (
       <div className="panel panel-danger">
         <div className="panel-heading">
-            <h3 className="panel-title">Schedule</h3>
+            <h3 className="panel-title">Upcoming Schedule</h3>
         </div>
 
         <div className="panel-body">

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import TodoItem from "./TodoItem";
+var moment = require('moment');
 
 class TodoPanel extends Component {
 
@@ -18,10 +19,13 @@ class TodoPanel extends Component {
   }
 
   render() {
+    
+    let date = Date.now()
+
     return (
       <div className="panel panel-success">
         <div className="panel-heading">
-          <h3 className="panel-title">Todos</h3>
+          <h3 className="panel-title">Todos - {moment(date).format("dddd, MMMM Do YYYY")}</h3>
         </div>
         <div className="panel-body">
           <ul className="list-group">
