@@ -13,8 +13,8 @@ class AddTask extends Component {
     this.state = {
       desc : "",
       recurs: "", //weekly/montly/yearly
-      recurEvery: "", // x days, weeks, months. 
       repeatXTimes: "", //until 0
+      recurEveryX: "", // x days, weeks, months. 
       date: moment(),
       redirectHome: false
     };
@@ -35,7 +35,7 @@ class AddTask extends Component {
   handleSubmit(event){
     event.preventDefault();
     
-    const { desc, recurs, recurEvery, repeatXTimes, date } = this.state;
+    const { desc, recurs, recurEveryX, repeatXTimes, date } = this.state;
     var taskObj
 
     if (recurs === "none" || recurs === "") {
@@ -46,9 +46,8 @@ class AddTask extends Component {
       };
 
     } else {
-      const nextDate = date.clone().add(1, 'day').add(recurEvery, recurs);
-
-      console.log("Next date of recur:", nextDate);
+      //calcs when the next one is. 
+      const nextDate = date.clone().add(1, 'day').add(recurEveryX, recurs);
 
       taskObj = {
         text: desc,
@@ -56,7 +55,8 @@ class AddTask extends Component {
         recurAny: true,
         recurFrequency: recurs,
         nextDate: nextDate,
-        recurAmount: repeatXTimes
+        recurAmount: repeatXTimes,
+        recurBetween: recurEveryX
       };
     }
 
@@ -124,22 +124,22 @@ class AddTask extends Component {
                </label>
              </div>
 
-              <h4>Recur every{' '}
-                <input type="text" pattern="[\d*]" 
-                  onInput={this.handleChange}
-                  size="2"
-                  id="recurEvery"
-                  value={this.state.recurEvery} />
-                {this.state.recurs  === "none" ? "" : this.state.recurs+"s"}.
-              </h4>
-
               <h4>Repeat for{' '}
                 <input type="text" pattern="[\d*]"
                   onInput={this.handleChange}
                   size="2"
-                  id="repeatEvery"
+                  id="repeatXTimes"
                   value={this.state.repeatXTimes} />
                   {this.state.recurs === "none" ? "" : this.state.recurs+"s"}.
+              </h4>
+
+              <h4>Recur every{' '}
+                <input type="text" pattern="[\d*]" 
+                  onInput={this.handleChange}
+                  size="2"
+                  id="recurEveryX"
+                  value={this.state.recurEveryX} />
+                {this.state.recurs  === "none" ? "" : this.state.recurs+"s"}.
               </h4>
 
               <h4>Task Date</h4>

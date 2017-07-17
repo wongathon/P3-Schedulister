@@ -22,21 +22,22 @@ class Home extends Component {
   }
 
   componentDidUpdate() {
+
   }
 
   getTasks() {
     //build axios methods
     API.getTasks().then((res) => {
-      console.log("getTasks:", res.data);
+      //console.log("get Tasks: ", res.data);
       this.setState({ tasks: res.data });
     });
   }
 
   getSchedule() {
     API.getTasksType(
-        { recurAny: false }
+        { text: { $exists:true } }
       ).then((res) => {
-      console.log("schedule:", res.data);
+      console.log("schedule get:", res.data);
       this.setState({ todoSchedule: res.data })
     });
   }

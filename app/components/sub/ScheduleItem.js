@@ -1,4 +1,5 @@
 import React from "react";
+import moment from 'moment';
 
 const ScheduleItem = (props) => {
 
@@ -6,7 +7,7 @@ const ScheduleItem = (props) => {
 
   return (  
     <li className="list-group-item">
-      <p>{text} -- Due: {taskDate}</p>
+      <p>{text} -- Due: {moment(taskDate).format('MM/DD/YY')}</p>
     </li>
 )};
 
