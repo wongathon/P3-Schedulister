@@ -3,6 +3,7 @@ import TodoItem from "./sub/TodoItem";
 import Schedule from "./sub/Schedule";
 import TodoPanel from "./sub/TodoPanel";
 import API from "../utils/api";
+import moment from 'moment';
 
 class Home extends Component {
   constructor() {
@@ -28,13 +29,25 @@ class Home extends Component {
   getTasks() {
     //build axios methods
     API.getTasks().then((res) => {
-      console.log("get Tasks: ", res.data);
+      //activate task if date is today, 
+      //created at is in the past. 
+      //Avoid activating recurring tasks by how? Complete button should shift task date ahead by one is how.
+      //COmplete button should set item.taskdate to NULL for non-recurring, also.  
+      res.data.forEach( item => {
+                //returns true if today                       //returns true if created in past. 
+        if( item.active === false && moment(item.taskDate).isSame(moment(), 'day') ) {
+          item.active = true;
+          //&& moment(item.taskCreated).isBefore(item.taskDate, 'day')
+        }
+        //Panel will take active & today tasks only. 
+      });
+      console.log("get Tasks after activated: ", res.data);
       this.setState({ tasks: res.data });
     });
   }
 
   getSchedule() {
-
+    //INCOMPLETE
     API.getTasksType(
         { nextDate: { $exists: true } }
       ).then((res) => {
