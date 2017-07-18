@@ -6,10 +6,14 @@ class TodoPanel extends Component {
 
   renderTodos() {
     // Getting a filtered array of items. Boild tasks down to todos. 
+    //&& moment().diff(item.taskDate, 'days') !== 0
     const activeTodos = this.props.tasks.filter(item => {
-      moment().format("LL") == moment(item.taskDate).format("LL");
+      if (item.active === true && moment(item.taskDate).isSame(moment(), 'day')) {
+        return true;
+      }
     });
-    
+
+    console.log(activeTodos);
     //this.setState({ todos: activeTodos });
     return activeTodos.map(task => (
         <TodoItem 

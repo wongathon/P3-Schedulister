@@ -36,7 +36,7 @@ class AddTask extends Component {
     event.preventDefault();
     
     const { desc, recurs, recurEveryX, repeatXTimes, date } = this.state;
-    var taskObj
+    var taskObj = {};
 
     if (recurs === "none" || recurs === "") {
       taskObj = {
@@ -47,17 +47,25 @@ class AddTask extends Component {
 
     } else {
       //calcs when the next one is. 
-      const nextDate = date.clone().add(1, 'day').add(recurEveryX, recurs);
-
       taskObj = {
         text: desc,
         taskDate: date,
         recurAny: true,
         recurFrequency: recurs,
-        nextDate: nextDate,
         recurAmount: repeatXTimes,
-        recurBetween: recurEveryX
+        recurBetween: recurEveryX,
       };
+
+      //NOT WORKING
+      //if date !== today, nextDate = date. Use logic
+      if (!(moment(date).isSame(moment(), 'day'))) {
+        const nextDate = date;
+        taskObj.active = false;
+        taskObj.nextDate = nextDate;
+      } else {
+        const nextDate = date.clone().add(1, 'day').add(recurEveryX, recurs);
+        taskObj.nextDate = nextDate;
+      }
     }
 
     API.saveTask(taskObj).then( res => {
