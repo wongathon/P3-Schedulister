@@ -1,8 +1,9 @@
 import React, { Component } from "react"
 import API from "../utils/api"
 import {hashHistory} from 'react-router'
-import AddTask from './Addtask'
-var moment = require('moment');
+import AdminPanel from './sub/AdminPanel' 
+import moment from 'moment'
+
 
 class Admin extends Component {
 
@@ -24,7 +25,8 @@ class Admin extends Component {
 	getTasks() {
 		//build axios methods
 		API.getTasks().then((res) => {
-		this.setState({ tasks: res.data });
+			console.log(res.data);
+		 this.setState({ tasks: res.data });
 		});
 	}
 
@@ -33,106 +35,6 @@ class Admin extends Component {
 		hashHistory.push('/addtask/');
 		console.log(item._id);
 		
-	}
-
-	renderDailyTodos() {
-	    // Getting a filtered array of daily and active items.
-	    const dailyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'day');
-	    
-	    //this.setState({ todos: activeTodos });
-	    return dailyTodos.map(item => (
-	       <div key={item._id} style={styles.lineHeight}>
-	        <listItem>{item.text}&nbsp;&nbsp;
-	        <button className="btn btn-xs btn-primary"
-	        		onClick={this.editTask.bind(this, item)}>EDIT</button>
-	        		&nbsp;&nbsp;
-	        <button className="btn btn-xs btn-danger"
-	        		onClick={this.deleteTodos.bind(this, item._id)}
-	        		>X</button>
-	      	</listItem>
-	      	<hr/>
-	      </div>
-      ));
-	}
-
-	renderWeeklyTodos() {
-	    // Getting a filtered array of weekly and active items.
-	    const weeklyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'week');
-	    
-	    //this.setState({ todos: activeTodos });
-	    return weeklyTodos.map(item => (
-	       <div key={item._id} style={styles.lineHeight}>
-	        <listItem>{item.text}&nbsp;&nbsp;
-	        <button className="btn btn-xs btn-primary"
-	        		onClick={this.editTask.bind(this, item)}>EDIT</button>
-	        		&nbsp;&nbsp;
-	        <button className="btn btn-xs btn-danger"
-	        		onClick={this.deleteTodos.bind(this, item._id)}
-	        		>X</button>
-	      	</listItem>
-	      	<hr/>
-	      </div>
-      ));
-	}
-
-	renderMonthlyTodos() {
-	    // Getting a filtered array of weekly and active items.
-	    const monthlyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'month');
-	    
-	    //this.setState({ todos: activeTodos });
-	    return monthlyTodos.map(item => (
-	       <div key={item._id} style={styles.lineHeight}>
-	        <listItem>{item.text}&nbsp;&nbsp;
-	        <button className="btn btn-xs btn-primary"
-	        		onClick={this.editTask.bind(this, item)}>EDIT</button>
-	        		&nbsp;&nbsp;
-	        <button className="btn btn-xs btn-danger"
-	        		onClick={this.deleteTodos.bind(this, item._id)}
-	        		>X</button>
-	      	</listItem>
-	      	<hr/>
-	      </div>
-      ));
-	}
-
-	renderScheduledTodos() {
-	    // Getting a filtered array of weekly and active items.
-	    const scheduledTodos = this.state.tasks.filter(item => item.active === true && item.recurAny === false);
-	    
-	    //this.setState({ todos: activeTodos });
-	    return scheduledTodos.map(item => (
-	       <div key={item._id} style={styles.lineHeight}>
-	        <listItem>{item.text} - Scheduled: {moment(item.taskDate).format('MMMM Do YYYY')}&nbsp;&nbsp;
-	        <button className="btn btn-xs btn-primary"
-	        		onClick={this.editTask.bind(this, item)}>EDIT</button>
-	        		&nbsp;&nbsp;
-	        <button className="btn btn-xs btn-danger"
-	        		onClick={this.deleteTodos.bind(this, item._id)}
-	        		>X</button>
-	      	</listItem>
-	      	<hr/>
-	      </div>
-      ));
-	}
-
-	renderCompletedTodos() {
-	    // Getting a filtered array of weekly and active items.
-	    const completedTodos = this.state.tasks.filter(item => item.active === false);
-	    
-	    //this.setState({ todos: activeTodos });
-	    return completedTodos.map(item => (
-	       <div key={item._id} style={styles.lineHeight}>
-	        <listItem>{item.text} - Scheduled: {moment(item.taskDate).format('MMMM Do YYYY')}&nbsp;&nbsp;
-	        <button className="btn btn-xs btn-primary"
-	        		onClick={this.editTask.bind(this, item)}>EDIT</button>
-	        		&nbsp;&nbsp;
-	        <button className="btn btn-xs btn-danger"
-	        		onClick={this.deleteTodos.bind(this, item._id)}
-	        		>X</button>
-	      	</listItem>
-	      	<hr/>
-	      </div>
-      ));
 	}
 
 	deleteTodos(item) {
@@ -146,6 +48,12 @@ class Admin extends Component {
 
 	render() {
 
+			const dailyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'day');
+	    const weeklyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'week');
+	    const monthlyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'month');
+	    const scheduledTodos = this.state.tasks.filter(item => item.active === true && item.recurAny === false);
+	    const completedTodos = this.state.tasks.filter(item => item.active === false);
+
 	    return (
 	    <div>
 	      <div className="panel panel-success">
@@ -154,7 +62,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            {this.renderDailyTodos()}
+	            <AdminPanel todos={dailyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -165,7 +73,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            {this.renderWeeklyTodos()}
+	            <AdminPanel todos={weeklyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -176,7 +84,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            {this.renderMonthlyTodos()}
+	            <AdminPanel todos={monthlyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -187,7 +95,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            {this.renderScheduledTodos()}
+	            <AdminPanel todos={scheduledTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -198,14 +106,14 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            {this.renderCompletedTodos()}
+							<AdminPanel todos={completedTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
 	          </ul>
 	        </div>
 	      </div>
 	    </div>
-	    );
-	  }
+	  );
 	}
+}
 
 const styles = {
   lineHeight: {
