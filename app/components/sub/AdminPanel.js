@@ -10,13 +10,23 @@ class AdminPanel extends Component {
 
     return todos.map(item => (
       <div key={item._id} style={styles.lineHeight}>
-        <listItem>{item.text} - Scheduled: {moment(item.taskDate).format('MMMM Do YYYY')}&nbsp;&nbsp;
-          <button className="btn btn-xs btn-primary pull-right"
-            onClick={() => this.props.editTask(item)}>EDIT</button>
-            &nbsp;&nbsp;
-          <button className="btn btn-xs btn-danger pull-right"
-            onClick={() => this.props.deleteTodos(item._id)}
-            >X</button>
+        <listItem>
+          <div className="col-md-10">
+            {item.text} - Scheduled: {moment(item.taskDate).format('MMMM Do YYYY')}
+          </div>
+
+          <div className="col-md-1">
+            <button className="btn btn-xs btn-primary pull-right"
+              onClick={() => this.props.editTask(item)}>EDIT
+            </button>
+          </div>
+
+          <div className="col-md-1">
+            <button className="btn btn-xs btn-danger pull-right"
+              onClick={() => this.props.deleteTodos(item._id)}
+              >DELETE
+            </button>
+          </div>
         </listItem>
         <hr/>
       </div>
@@ -34,7 +44,7 @@ class AdminPanel extends Component {
 
 const styles = {
   lineHeight: {
-    lineHeight: 2.1,
+    lineHeight: 2.5,
   }
 };
 
