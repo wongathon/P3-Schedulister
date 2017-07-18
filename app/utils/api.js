@@ -27,10 +27,16 @@ const API = {
 
   taskComplete: function(task) {
     task.active = false;  
-    //works for d/w/m, but NOT bi-daily. 
+    //works for d/w/m, bi-daily, etc. 
     if (task.recurAny === true) {
-      task.taskDate = moment(task.taskDate).clone().add(task.recurBetween, task.recurFrequency).format();
-      task.nextDate = moment(task.taskDate).clone().add(task.recurBetween, task.recurFrequency).format();
+      console.log(task.recurBetween);
+      const recurBet = task.recurBetween === null ? 1 : task.recurBetween;  
+
+      task.taskDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();
+      task.nextDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();
+    } else {
+      //Will this work? 
+      task.taskDate = null;
     }
 
     console.log("After complete:", task);
@@ -39,8 +45,8 @@ const API = {
       const { _id, active, taskDate, nextDate } = task;
       return axios.patch(`/api/tasks/${_id}`, {active, taskDate, nextDate});
     } else {
-      const { _id, active } = task;
-      return axios.patch(`/api/tasks/${_id}`, { active });
+      const { _id, active, taskDate } = task;
+      return axios.patch(`/api/tasks/${_id}`, { active, taskDate });
     }
 
   },
