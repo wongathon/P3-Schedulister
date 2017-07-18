@@ -52,12 +52,21 @@ class Admin extends Component {
 
 	render() {
 
+<<<<<<< HEAD
 		const dailyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'day');
 	    const weeklyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'week');
 	    const monthlyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'month');
 	    const scheduledTodos = this.state.tasks.filter(item => item.active === true && item.recurAny === false);
 	    const completedTodos = this.state.tasks.filter(item => item.active === false);
 	    
+=======
+			const dailyTodos = this.state.tasks.filter(item => item.recurFrequency === 'day');
+	    const weeklyTodos = this.state.tasks.filter(item => item.recurFrequency === 'week');
+	    const monthlyTodos = this.state.tasks.filter(item => item.recurFrequency === 'month');
+	    const scheduledTodos = this.state.tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true);
+	    const completedTodos = this.state.tasks.filter(item => item.taskDate === null && item.active === false);
+
+>>>>>>> 5bf9eb65e6d209a68119eb4e0c7b5cdf13cb85e5
 	    return (
 	    <div>
 	      <div className="panel panel-success">
