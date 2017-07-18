@@ -3,18 +3,22 @@ import API from "../utils/api"
 import {hashHistory} from 'react-router'
 import AddTask from './Addtask'
 var moment = require('moment');
+import ReactModal from 'react-modal';
 
 class Admin extends Component {
 
 	constructor() {
     	super();
     	this.state = {
-    		tasks: []
+    		tasks: [],
+    		showModal: false
     	}
 
     	this.getTasks = this.getTasks.bind(this);
     	this.editTask = this.editTask.bind(this);
     	this.deleteTodos = this.deleteTodos.bind(this);
+    	this.handleOpenModal = this.handleOpenModal.bind(this);
+    	this.handleCloseModal = this.handleCloseModal.bind(this);
   	}
 
 	componentDidMount() {
@@ -28,9 +32,17 @@ class Admin extends Component {
 		});
 	}
 
+  handleOpenModal () {
+    this.setState({ showModal: true });
+  }
+  
+  handleCloseModal () {
+    this.setState({ showModal: false });
+  }
+
 	editTask(item) {
 		//go to Add Task form
-		hashHistory.push('/addtask/');
+		//hashHistory.push('/addtask/');
 		console.log(item._id);
 		
 	}
@@ -44,7 +56,7 @@ class Admin extends Component {
 	       <div key={item._id} style={styles.lineHeight}>
 	        <listItem>{item.text}&nbsp;&nbsp;
 	        <button className="btn btn-xs btn-primary"
-	        		onClick={this.editTask.bind(this, item)}>EDIT</button>
+	        		onClick={this.handleOpenModal}>EDIT</button>
 	        		&nbsp;&nbsp;
 	        <button className="btn btn-xs btn-danger"
 	        		onClick={this.deleteTodos.bind(this, item._id)}
@@ -202,6 +214,13 @@ class Admin extends Component {
 	          </ul>
 	        </div>
 	      </div>
+	      <ReactModal 
+           isOpen={this.state.showModal}
+           contentLabel="Minimal Modal Example"
+        >
+          <button onClick={this.handleCloseModal}>Close Modal</button>
+          <h1>Is this shit working or what?</h1>
+        </ReactModal>
 	    </div>
 	    );
 	  }
