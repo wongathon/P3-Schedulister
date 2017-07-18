@@ -1,9 +1,15 @@
 import React, { Component } from "react"
 import API from "../utils/api"
 import {hashHistory} from 'react-router'
+<<<<<<< HEAD
 import AddTask from './Addtask'
 var moment = require('moment');
 import ReactModal from 'react-modal';
+=======
+import AdminPanel from './sub/AdminPanel' 
+import moment from 'moment'
+
+>>>>>>> ad0b1f90c1ff204ac7a73bdcb67f96c2f1f3e6e0
 
 class Admin extends Component {
 
@@ -28,7 +34,8 @@ class Admin extends Component {
 	getTasks() {
 		//build axios methods
 		API.getTasks().then((res) => {
-		this.setState({ tasks: res.data });
+			console.log(res.data);
+		 this.setState({ tasks: res.data });
 		});
 	}
 
@@ -47,6 +54,7 @@ class Admin extends Component {
 		
 	}
 
+<<<<<<< HEAD
 	renderDailyTodos() {
 	    // Getting a filtered array of daily and active items.
 	    const dailyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'day');
@@ -147,6 +155,8 @@ class Admin extends Component {
       ));
 	}
 
+=======
+>>>>>>> ad0b1f90c1ff204ac7a73bdcb67f96c2f1f3e6e0
 	deleteTodos(item) {
 	    API.deleteTask(item)
 	    .then(alert('This task will be deleted forever'))
@@ -158,6 +168,12 @@ class Admin extends Component {
 
 	render() {
 
+			const dailyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'day');
+	    const weeklyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'week');
+	    const monthlyTodos = this.state.tasks.filter(item => item.active === true && item.recurFrequency === 'month');
+	    const scheduledTodos = this.state.tasks.filter(item => item.active === true && item.recurAny === false);
+	    const completedTodos = this.state.tasks.filter(item => item.active === false);
+
 	    return (
 	    <div>
 	      <div className="panel panel-success">
@@ -166,7 +182,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            {this.renderDailyTodos()}
+	            <AdminPanel todos={dailyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -177,7 +193,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            {this.renderWeeklyTodos()}
+	            <AdminPanel todos={weeklyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -188,7 +204,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            {this.renderMonthlyTodos()}
+	            <AdminPanel todos={monthlyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -199,7 +215,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            {this.renderScheduledTodos()}
+	            <AdminPanel todos={scheduledTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -210,7 +226,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            {this.renderCompletedTodos()}
+							<AdminPanel todos={completedTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -222,9 +238,9 @@ class Admin extends Component {
           <h1>Is this shit working or what?</h1>
         </ReactModal>
 	    </div>
-	    );
-	  }
+	  );
 	}
+}
 
 const styles = {
   lineHeight: {

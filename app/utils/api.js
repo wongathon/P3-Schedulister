@@ -29,8 +29,8 @@ const API = {
     task.active = false;  
     //works for d/w/m, but NOT bi-daily. 
     if (task.recurAny === true) {
-      task.taskDate = moment(task.taskDate).clone().add(1, task.recurFrequency).format();
-      task.nextDate = moment(task.taskDate).clone().add(1, task.recurFrequency).format();
+      task.taskDate = moment(task.taskDate).clone().add(task.recurBetween, task.recurFrequency).format();
+      task.nextDate = moment(task.taskDate).clone().add(task.recurBetween, task.recurFrequency).format();
     }
 
     console.log("After complete:", task);
