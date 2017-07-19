@@ -52,7 +52,6 @@ class Home extends Component {
     API.getTasksType(
         { nextDate: { $exists: true } }
       ).then((res) => {
-      console.log("schedule get:", res.data);
       this.setState({ todoSchedule: res.data })
     });
   }

@@ -76,18 +76,10 @@ class AddTask extends Component {
       //start today. 
       } else {
         //calcs when the next one is, in "nextDate"
-
-        console.log("recurEveryX is", recurEveryX)
-
         const recursX = recurEveryX === "" ? 1 : recurEveryX;
 
-        console.log("recursXtimees:", recursX);
-        console.log("recurs type:", recurs);
-
         const nextDate = date.clone().add(recursX, recurs).format();
-
-        console.log("nextDate result:", nextDate);
-
+        
         taskObj.nextDate = nextDate;
       }
     }
