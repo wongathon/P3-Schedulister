@@ -27,23 +27,29 @@ const API = {
 
   taskComplete: function(task) {
     task.active = false;  
-    //works for d/w/m, bi-daily, etc. 
-    if (task.recurAny === true) {
-      console.log(task.recurBetween);
-      const recurBet = task.recurBetween === null ? 1 : task.recurBetween;  
 
-      task.taskDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();
-      task.nextDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();
-    } else {
-      //Will this work? 
+    //Recurring items, pushes TaskDate forward, calcs NextDate. 
+    //works for d/w/m, bi-daily, etc. 
+    if (task.recurAny === true && (task.recurAmount === null || task.recurAmount > 0)) {
+      const recurBet = task.recurBetween === null ? 1 : task.recurBetween;  //handles if recurXTimes was null in Task Obj. 
+
+      task.taskDate = task.nextDate;//Pushes ahead. Should work????
+      task.nextDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();//oh. Works forward off *new* taskDate. 
+    } 
+
+    if (task.recurAmount !== null && task.recurAmount > 0) {
+      task.recurAmount--;
+    }
+
+    if (task.recurAmount === 0) { //scheduled tasks in future. 
       task.taskDate = null;
     }
 
     console.log("After complete:", task);
 
     if (task.recurAny === true) {
-      const { _id, active, taskDate, nextDate } = task;
-      return axios.patch(`/api/tasks/${_id}`, {active, taskDate, nextDate});
+      const { _id, active, taskDate, nextDate, recurAmount } = task;
+      return axios.patch(`/api/tasks/${_id}`, {active, taskDate, nextDate, recurAmount });
     } else {
       const { _id, active, taskDate } = task;
       return axios.patch(`/api/tasks/${_id}`, { active, taskDate });

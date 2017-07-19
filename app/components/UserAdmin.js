@@ -6,8 +6,8 @@ import React from 'react'
 function UserAdmin (props) {
 
     return (
-      <div className="background-1">
-        <h1>User Admin Page</h1>
+      <div className="page-header">
+        <h2>Edit My Profile</h2>
       </div>
     )
   

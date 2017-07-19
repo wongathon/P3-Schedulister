@@ -48,14 +48,17 @@ class Admin extends Component {
 
 	render() {
 
-			const dailyTodos = this.state.tasks.filter(item => item.recurFrequency === 'day');
-	    const weeklyTodos = this.state.tasks.filter(item => item.recurFrequency === 'week');
-	    const monthlyTodos = this.state.tasks.filter(item => item.recurFrequency === 'month');
-	    const scheduledTodos = this.state.tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true);
+			const dailyTodos = this.state.tasks.filter(item => item.recurFrequency === 'day' && item.taskDate !== null);
+	    const weeklyTodos = this.state.tasks.filter(item => item.recurFrequency === 'week' && item.taskDate !== null);
+	    const monthlyTodos = this.state.tasks.filter(item => item.recurFrequency === 'month' && item.taskDate !== null);
+	    const scheduledTodos = this.state.tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true && item.recurAny === false);
 	    const completedTodos = this.state.tasks.filter(item => item.taskDate === null && item.active === false);
 
 	    return (
 	    <div>
+	      <div className="page-header">
+	        <h2>Edit my To-dos</h2>
+	      </div>
 	      <div className="panel panel-success">
 	        <div className="panel-heading">
 	          <h3 className="panel-title">Daily Todos</h3>
