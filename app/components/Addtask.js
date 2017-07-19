@@ -79,7 +79,7 @@ class AddTask extends Component {
         const recursX = recurEveryX === "" ? 1 : recurEveryX;
 
         const nextDate = date.clone().add(recursX, recurs).format();
-        
+
         taskObj.nextDate = nextDate;
       }
     }
@@ -147,24 +147,25 @@ class AddTask extends Component {
                  Monthly
                </label>
              </div>
-
-              <h4>Repeat for{' '}
-                <input type="text" pattern="[\d*]"
+              <hr />
+              <h4>Recur{' '}
+                <input type="text" pattern="[\d*]{1,2}"
                   onInput={this.handleChange}
                   size="2"
                   id="repeatXTimes"
                   value={this.state.repeatXTimes} />
-                  {this.state.recurs === "none" ? "" : this.state.recurs+"s"}.
-              </h4>
+                  {' '}times. 
+              </h4><p><i>Ex: Enter 6 to remind for 6 days. Leave blank for unlimited times until canceled.</i></p>
 
               <h4>Recur every{' '}
-                <input type="text" pattern="[\d*]" 
+                <input type="text" pattern="[\d*]{1,2}" 
                   onInput={this.handleChange}
                   size="2"
                   id="recurEveryX"
                   value={this.state.recurEveryX} />
                 {this.state.recurs  === "none" ? "" : this.state.recurs+"s"}.
-              </h4>
+              </h4><p><i>Ex: Enter 2 for bi-weekly, 6 for every 6 weeks, etc.</i></p>
+              <hr />
 
               <h4>Task Date</h4>
               <p><i>Start date if recurring, or one time event</i></p>

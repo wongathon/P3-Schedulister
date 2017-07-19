@@ -35,13 +35,15 @@ const API = {
 
       task.taskDate = task.nextDate;//Pushes ahead. Should work????
       task.nextDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();//oh. Works forward off *new* taskDate. 
-    
-      task.recurAmount--;
-      console.log("HIT THIS", task.recurAmount);
-      if (task.recurAmount === 0) { //scheduled tasks in future. 
-        task.taskDate = null;
-      }
     } 
+
+    if (task.recurAmount !== null && task.recurAmount > 0) {
+      task.recurAmount--;
+    }
+
+    if (task.recurAmount === 0) { //scheduled tasks in future. 
+      task.taskDate = null;
+    }
 
     console.log("After complete:", task);
 
