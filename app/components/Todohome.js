@@ -58,24 +58,19 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-sm-8 col-md-6">
-            <TodoPanel
-              tasks={this.state.tasks}
-              getTasks={this.getTasks}
-              getSchedule={this.getSchedule}
-            />
-          </div>
+      <div>
+        <div className="page-header">
+          <h2>My To-Do List</h2>
         </div>
-        <hr />
-        <div className="row">
-          <div className="col-sm-8 col-md-6"> 
-            <Schedule 
-              tasks={this.state.todoSchedule}
-            />
-          </div>
-        </div>
+          <TodoPanel
+            tasks={this.state.tasks}
+            getTasks={this.getTasks}
+            getSchedule={this.getSchedule}
+          />
+          <hr/>
+          <Schedule 
+            tasks={this.state.todoSchedule}
+          />
       </div>
     );
   }

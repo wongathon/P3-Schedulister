@@ -1,0 +1,57 @@
+
+h2 {
+	font-family: 'Raleway', sans-serif;
+	color: #5B3256;
+}
+
+.panel-title {
+	font-family: 'Raleway', sans-serif;
+}
+
+h3.appTitle {
+	font-size: 43px;
+	color: white;
+	font-family: 'Lobster', cursive;
+}
+
+html,body,.container {
+    height:100%;
+}
+.container {
+    display:table;
+    width: 100%;
+    margin-top: -50px;
+    padding: 50px 0 0 0; /*set left/right padding according to needs*/
+    box-sizing: border-box;
+}
+
+.row {
+    height: 100%;
+    display: table-row;
+}
+
+div.col-md-3.no-float {
+  display: table-cell;
+  float: none;
+  background-color: #5B3256;
+  color: white;
+}
+
+a {
+	color: white;
+}
+
+@media (min-width: 992px) {
+  .row .no-float {
+      display: table-cell;
+      float: none;
+  }
+}
+
+div.container {
+	background-image: ;
+}
+
+body {
+	background-image: url("./groovepaper/groovepaper.png") ;
+}

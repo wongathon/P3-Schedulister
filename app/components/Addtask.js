@@ -96,6 +96,10 @@ class AddTask extends Component {
   render() {
 
     return (
+    <div>
+      <div className="page-header">
+        <h2>Add a To-do</h2>
+      </div>
       <div className="panel panel-default">
         <div className="panel-heading">
           <h3 className="panel-title">Add a task!</h3>
@@ -182,6 +186,7 @@ class AddTask extends Component {
           </form>
         </div>
       </div>
+    </div>
     );
   }
 }

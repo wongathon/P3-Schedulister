@@ -56,6 +56,9 @@ class Admin extends Component {
 
 	    return (
 	    <div>
+	      <div className="page-header">
+	        <h2>Edit my To-dos</h2>
+	      </div>
 	      <div className="panel panel-success">
 	        <div className="panel-heading">
 	          <h3 className="panel-title">Daily Todos</h3>

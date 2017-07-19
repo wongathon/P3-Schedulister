@@ -9,23 +9,16 @@ class Main extends Component {
   render () {
 
     return (
-      <div className="container">
-        <div className="row">
-          <header>
-            <h1>My Todo List</h1>
-          </header>
-        </div>
-
-        <div className="row">
-          <div className="col-md-3">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-3 no-float">
              <Navbar />
-          </div>
-          
-          <div className="col-md-9">
-            {this.props.children}
+            </div>
+            <div className="col-md-8 no-float">
+              {this.props.children}
+            </div>
           </div>
         </div>
-      </div>
     )
   }
 }
