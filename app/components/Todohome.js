@@ -47,7 +47,8 @@ class Home extends Component {
   }
 
   getSchedule() {
-    //INCOMPLETE
+    //INCOMPLETE... 
+    //active = false, 
     API.getTasksType(
         { nextDate: { $exists: true } }
       ).then((res) => {
@@ -64,6 +65,7 @@ class Home extends Component {
             <TodoPanel
               tasks={this.state.tasks}
               getTasks={this.getTasks}
+              getSchedule={this.getSchedule}
             />
           </div>
         </div>
@@ -72,7 +74,6 @@ class Home extends Component {
           <div className="col-sm-8 col-md-6"> 
             <Schedule 
               tasks={this.state.todoSchedule}
-              getSchedule={this.getSchedule}
             />
           </div>
         </div>

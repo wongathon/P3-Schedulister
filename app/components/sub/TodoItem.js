@@ -5,7 +5,9 @@ class TodoItem extends Component {
 
   completeTodo(task) {
     console.log("before complete:", task);
-    API.taskComplete(task).then(this.props.getTasks);
+    API.taskComplete(task)
+      .then(this.props.getTasks)
+      .then(this.props.getSchedule);
   }
 
   render() {

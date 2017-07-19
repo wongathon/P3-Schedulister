@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ScheduleItem from "./ScheduleItem";
+import moment from 'moment';
 
 class Schedule extends Component {
   // Defining a constructor method where we set our initial state
@@ -7,10 +8,11 @@ class Schedule extends Component {
  renderScheduledTasks() {
     // Getting an array of scheduled tasks
     const { tasks } = this.props;
-   // Mapping through our active scheduled tasks
 
-   if (tasks) {
-    return tasks.map(item => (
+    const sched = tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true);
+   // Mapping through our future, INACTIVE tasks
+   if (sched) {
+    return sched.map(item => (
       <ScheduleItem 
         item={item}
         key={item._id}

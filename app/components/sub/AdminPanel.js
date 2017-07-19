@@ -10,7 +10,7 @@ class AdminPanel extends Component {
 
     return todos.map(item => (
       <div key={item._id} style={styles.lineHeight}>
-        <listItem>{item.text} - Scheduled: {item.taskDate ? moment(item.taskDate).format('MMMM Do YYYY') : moment(item.taskCreated).format('MMMM Do YYYY')}&nbsp;&nbsp;
+        <listItem>{item.text}
           <button className="btn btn-xs btn-danger pull-right"
             onClick={() => this.props.deleteTodos(item._id)}
             >X</button>
@@ -18,6 +18,7 @@ class AdminPanel extends Component {
           <button className="btn btn-xs btn-primary pull-right"
             onClick={() => this.props.editTask(item)}>EDIT</button>
             &nbsp;&nbsp;
+           <p><i>Next occurs: {item.taskDate ? moment(item.taskDate).format('MMMM Do YYYY') : moment(item.taskCreated).format('MMMM Do YYYY')}&nbsp;&nbsp;</i></p>
         </listItem>
         <hr/>
       </div>

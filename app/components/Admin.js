@@ -51,7 +51,8 @@ class Admin extends Component {
 			const dailyTodos = this.state.tasks.filter(item => item.recurFrequency === 'day');
 	    const weeklyTodos = this.state.tasks.filter(item => item.recurFrequency === 'week');
 	    const monthlyTodos = this.state.tasks.filter(item => item.recurFrequency === 'month');
-	    const scheduledTodos = this.state.tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true);
+	    //once-off todos
+	    const scheduledTodos = this.state.tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true && item.recurAny === false);
 	    const completedTodos = this.state.tasks.filter(item => item.taskDate === null && item.active === false);
 
 	    return (

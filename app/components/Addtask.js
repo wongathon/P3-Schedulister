@@ -38,15 +38,25 @@ class AddTask extends Component {
     const { desc, recurs, recurEveryX, repeatXTimes, date } = this.state;
     var taskObj = {};
 
-    if (recurs === "none" || recurs === "") {
+    //Non-recur vs. Recur
+    if (recurs === "none" || recurs === "") { 
+      
       taskObj = {
         text: desc,
         taskDate: date, //due today, basically, pulled from Component
         recurAmount: 1
       };
 
-    } else {
-      //calcs when the next one is. 
+      if (moment(date).isAfter(moment(), 'day')) {
+        //if date !== today, nextDate = taskdate. If equals, then will nullify on complete. 
+        const nextDate = date; //equals "taskdate"
+        console.log("hit me!");
+        taskObj.active = false;
+        taskObj.nextDate = nextDate;
+      } 
+
+    } else { // should capture recurs 
+
       taskObj = {
         text: desc,
         taskDate: date,
@@ -56,14 +66,28 @@ class AddTask extends Component {
         recurBetween: recurEveryX,
       };
 
-      //NOT WORKING
-      //if date !== today, nextDate = date. Use logic
+      //Start future vs. start today. 
       if (!(moment(date).isSame(moment(), 'day'))) {
-        const nextDate = date;
+        //if date !== today, nextDate = taskdate. If equals, then will nullify on complete. 
+        const nextDate = date; //equals "taskdate"
         taskObj.active = false;
         taskObj.nextDate = nextDate;
+
+      //start today. 
       } else {
-        const nextDate = date.clone().add(1, 'day').add(recurEveryX, recurs);
+        //calcs when the next one is, in "nextDate"
+
+        console.log("recurEveryX is", recurEveryX)
+
+        const recursX = recurEveryX === "" ? 1 : recurEveryX;
+
+        console.log("recursXtimees:", recursX);
+        console.log("recurs type:", recurs);
+
+        const nextDate = date.clone().add(recursX, recurs).format();
+
+        console.log("nextDate result:", nextDate);
+
         taskObj.nextDate = nextDate;
       }
     }

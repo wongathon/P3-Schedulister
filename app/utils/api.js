@@ -27,15 +27,27 @@ const API = {
 
   taskComplete: function(task) {
     task.active = false;  
+
+    //Recurring items, pushes TaskDate forward, calcs NextDate. 
     //works for d/w/m, bi-daily, etc. 
     if (task.recurAny === true) {
       console.log(task.recurBetween);
-      const recurBet = task.recurBetween === null ? 1 : task.recurBetween;  
+      const recurBet = task.recurBetween === null ? 1 : task.recurBetween;  //handles if recurXTimes was null in Task Obj. 
 
-      task.taskDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();
-      task.nextDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();
+      task.taskDate = task.nextDate;//Pushes ahead. Should work????
+      task.nextDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();//oh. Works forward off *new* taskDate. 
+    
+    //Needs to work for scheduled, one-off items. 
+    //If nextdate === null, turn taskDate null. 
+    //If taskDate === nextDate, turn taskDate null. 
+    //Check "Completed Items Panel" logic. 
+    } else if (task.nextDate === task.taskDate) { //scheduled tasks in future. 
+
+      
+      //Is this necessary???
+      task.taskDate = null;
+
     } else {
-      //Will this work? 
       task.taskDate = null;
     }
 
