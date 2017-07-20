@@ -20,7 +20,7 @@ class Admin extends Component {
 	    	text: "",
 	    	recurFrequency: "",
 	    	recurAmount: "",
-	        recurBetween: ""
+	      recurBetween: ""
     	};
 
     	this.getTasks = this.getTasks.bind(this);
@@ -58,14 +58,13 @@ class Admin extends Component {
     console.log(item);
     this.setState(
     		{ 	
-    		showModal: true,
+    			showModal: true,
 	    		_id: item._id,
 	    		text: item.text ? item.text : "",
 	    		taskDate: moment(item.taskDate),
 	    		recurFrequency: item.recurFrequency ? item.recurFrequency : "",
 	    		recurAmount: item.recurAmount ? item.recurAmount : "",
-	        	recurBetween: item.recurBetween ? item.recurBetween : ""
-        		
+	        recurBetween: item.recurBetween ? item.recurBetween : ""	
     		}
     	);
     
@@ -73,6 +72,7 @@ class Admin extends Component {
   
   	handleCloseModal () {
     this.setState({ showModal: false });
+    this.getTasks();
   	}
 
   	handleUpdate (event) {
@@ -135,9 +135,7 @@ class Admin extends Component {
 
     API.taskUpdate(taskObj).then( res => {
       console.log("Updating the task:", res.data);
-    }).then(this.handleCloseModal())
-      .then(this.getTasks());
-
+    }).then(this.handleCloseModal());
   	}
 
 	deleteTodos(item) {
@@ -151,17 +149,10 @@ class Admin extends Component {
 
 	render() {
 
-<<<<<<< HEAD
-		const dailyTodos = this.state.tasks.filter(item => item.recurFrequency === 'day');
-	    const weeklyTodos = this.state.tasks.filter(item => item.recurFrequency === 'week');
-	    const monthlyTodos = this.state.tasks.filter(item => item.recurFrequency === 'month');
-	    const scheduledTodos = this.state.tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true);
-=======
 			const dailyTodos = this.state.tasks.filter(item => item.recurFrequency === 'day' && item.taskDate !== null);
 	    const weeklyTodos = this.state.tasks.filter(item => item.recurFrequency === 'week' && item.taskDate !== null);
 	    const monthlyTodos = this.state.tasks.filter(item => item.recurFrequency === 'month' && item.taskDate !== null);
 	    const scheduledTodos = this.state.tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true && item.recurAny === false);
->>>>>>> 66b00a4a51d831d5c4b988df053ff0e84b177851
 	    const completedTodos = this.state.tasks.filter(item => item.taskDate === null && item.active === false);
 
 	    return (
