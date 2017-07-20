@@ -17,11 +17,11 @@ class TodoItem extends Component {
     
     return (
       <li className="list-group-item">
-         <button
+         <a
             className="btn btn-success"
             onClick={() => this.completeTodo(todo)}
             style={todo.active ? style.todo : style.done } 
-          /> {" "+todo.text}
+          ><i className="fa fa-check"></i></a>{" "+todo.text}
           <p><i>{recurs}</i></p>
       </li>
     )
