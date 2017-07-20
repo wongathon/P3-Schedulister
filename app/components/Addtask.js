@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
+import { Route } from 'react-router';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
@@ -15,8 +15,7 @@ class AddTask extends Component {
       recurs: "", //weekly/montly/yearly
       repeatXTimes: "", //until 0
       recurEveryX: "", // x days, weeks, months. 
-      date: moment(),
-      redirectHome: false
+      date: moment()
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -38,15 +37,25 @@ class AddTask extends Component {
     const { desc, recurs, recurEveryX, repeatXTimes, date } = this.state;
     var taskObj = {};
 
-    if (recurs === "none" || recurs === "") {
+    //Non-recur vs. Recur
+    if (recurs === "none" || recurs === "") { 
+      
       taskObj = {
         text: desc,
         taskDate: date, //due today, basically, pulled from Component
         recurAmount: 1
       };
 
-    } else {
-      //calcs when the next one is. 
+      if (moment(date).isAfter(moment(), 'day')) {
+        //if date !== today, nextDate = taskdate. If equals, then will nullify on complete. 
+        const nextDate = date; //equals "taskdate"
+        console.log("hit me!");
+        taskObj.active = false;
+        taskObj.nextDate = nextDate;
+      } 
+
+    } else { // should capture recurs 
+
       taskObj = {
         text: desc,
         taskDate: date,
@@ -56,14 +65,20 @@ class AddTask extends Component {
         recurBetween: recurEveryX,
       };
 
-      //NOT WORKING
-      //if date !== today, nextDate = date. Use logic
+      //Start future vs. start today. 
       if (!(moment(date).isSame(moment(), 'day'))) {
-        const nextDate = date;
+        //if date !== today, nextDate = taskdate. If equals, then will nullify on complete. 
+        const nextDate = date; //equals "taskdate"
         taskObj.active = false;
         taskObj.nextDate = nextDate;
+
+      //start today. 
       } else {
-        const nextDate = date.clone().add(1, 'day').add(recurEveryX, recurs);
+        //calcs when the next one is, in "nextDate"
+        const recursX = recurEveryX === "" ? 1 : recurEveryX;
+
+        const nextDate = date.clone().add(recursX, recurs).format();
+
         taskObj.nextDate = nextDate;
       }
     }
@@ -80,6 +95,10 @@ class AddTask extends Component {
   render() {
 
     return (
+    <div>
+      <div className="page-header">
+        <h2>Add a To-do</h2>
+      </div>
       <div className="panel panel-default">
         <div className="panel-heading">
           <h3 className="panel-title">Add a task!</h3>
@@ -131,24 +150,25 @@ class AddTask extends Component {
                  Monthly
                </label>
              </div>
-
-              <h4>Repeat for{' '}
-                <input type="text" pattern="[\d*]"
+              <hr />
+              <h4>Recur{' '}
+                <input type="text" pattern="[\d*]{1,2}"
                   onInput={this.handleChange}
                   size="2"
                   id="repeatXTimes"
                   value={this.state.repeatXTimes} />
-                  {this.state.recurs === "none" ? "" : this.state.recurs+"s"}.
-              </h4>
+                  {' '}times. 
+              </h4><p><i>Ex: Enter 6 to remind for 6 days. Leave blank for unlimited times until canceled.</i></p>
 
               <h4>Recur every{' '}
-                <input type="text" pattern="[\d*]" 
+                <input type="text" pattern="[\d*]{1,2}" 
                   onInput={this.handleChange}
                   size="2"
                   id="recurEveryX"
                   value={this.state.recurEveryX} />
                 {this.state.recurs  === "none" ? "" : this.state.recurs+"s"}.
-              </h4>
+              </h4><p><i>Ex: Enter 2 for bi-weekly, 6 for every 6 weeks, etc.</i></p>
+              <hr />
 
               <h4>Task Date</h4>
               <p><i>Start date if recurring, or one time event</i></p>
@@ -165,6 +185,7 @@ class AddTask extends Component {
           </form>
         </div>
       </div>
+    </div>
     );
   }
 }

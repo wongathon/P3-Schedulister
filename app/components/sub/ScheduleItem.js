@@ -7,7 +7,7 @@ const ScheduleItem = (props) => {
 
   return (  
     <li className="list-group-item">
-      <p>{text} -- Due: {moment(taskDate).format("dddd, MMMM Do YYYY")}</p>
+      <p>{text} -- Next occurs: {moment(taskDate).format("dddd, MMMM Do YYYY")}</p>
     </li>
 )};
 

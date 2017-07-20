@@ -1,4 +1,9 @@
 node_modules
+
 get-it-done
+
 public/bundle.js
+
+public/bundleholder/bundle.js
+
 .DS_Store

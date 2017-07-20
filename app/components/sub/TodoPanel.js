@@ -14,15 +14,24 @@ class TodoPanel extends Component {
       }
     });
 
-    console.log("active todos", activeTodos);
-    //this.setState({ todos: activeTodos });
-    return activeTodos.map(task => (
+    if (activeTodos.length > 0) {
+      return activeTodos.map(task => (
         <TodoItem 
           key={task._id} 
           todo={task} 
           getTasks={this.props.getTasks} 
+          getSchedule={this.props.getSchedule}
         />
       ));
+    } else {
+      return (
+        <p><i>Nothing here yet!</i></p>
+      )
+    }
+
+    //console.log("active todos", activeTodos);
+    //this.setState({ todos: activeTodos });
+
   }
 
   render() {

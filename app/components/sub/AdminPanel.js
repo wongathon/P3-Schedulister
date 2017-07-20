@@ -8,20 +8,26 @@ class AdminPanel extends Component {
 
     const todos = this.props.todos;
 
-    return todos.map(item => (
-      <div key={item._id} style={styles.lineHeight}>
-        <listItem>{item.text} - Scheduled: {item.taskDate ? moment(item.taskDate).format('MMMM Do YYYY') : moment(item.taskCreated).format('MMMM Do YYYY')}&nbsp;&nbsp;
-          <button className="btn btn-xs btn-danger pull-right"
-            onClick={() => this.props.deleteTodos(item._id)}
-            >X</button>
-            {" "}
-          <button className="btn btn-xs btn-primary pull-right"
-            onClick={() => this.props.editTask(item)}>EDIT</button>
-            &nbsp;&nbsp;
-        </listItem>
-        <hr/>
-      </div>
-    ));
+    if (todos.length > 0) {
+      return todos.map(item => (
+        <div key={item._id} style={styles.lineHeight}>
+          <listItem>{item.text}
+            <button className="btn btn-xs btn-danger pull-right"
+              onClick={() => this.props.deleteTodos(item._id)}
+              >X</button>
+              {" "}
+            <button className="btn btn-xs btn-primary pull-right" style={styles.spacing}
+              onClick={() => this.props.openModal(item)}>EDIT</button>
+             <p><i>Next occurs: {item.taskDate ? moment(item.taskDate).format('MMMM Do YYYY') : moment(item.taskCreated).format('MMMM Do YYYY')}&nbsp;&nbsp;</i></p>
+          </listItem>
+          <hr/>
+        </div>
+      ));
+    } else {
+      return (
+        <p><i>Nothing here yet!</i></p>
+      )
+    }
   }
   //this.setState({ todos: activeTodos });
   render() {
@@ -32,10 +38,9 @@ class AdminPanel extends Component {
     )
   }
 };
-
 const styles = {
-  lineHeight: {
-    lineHeight: 2.1,
+  spacing: {
+    marginRight: 10,
   }
 };
 
