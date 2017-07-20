@@ -1,22 +1,46 @@
 import React, { Component } from "react"
 import API from "../utils/api"
-import {hashHistory} from 'react-router'
+import {Route, Redirect} from 'react-router'
 import AdminPanel from './sub/AdminPanel' 
 import moment from 'moment'
+import ReactModal from 'react-modal'
 
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
 
 class Admin extends Component {
 
 	constructor() {
     	super();
     	this.state = {
-    		tasks: []
-    	}
+    		tasks: [],
+    		showModal: false,
+    		taskDate: moment(),
+    		_id: "",
+	    	text: "",
+	    	recurFrequency: "",
+	    	recurAmount: "",
+	        recurBetween: ""
+    	};
 
     	this.getTasks = this.getTasks.bind(this);
-    	this.editTask = this.editTask.bind(this);
     	this.deleteTodos = this.deleteTodos.bind(this);
+    	this.handleOpenModal = this.handleOpenModal.bind(this);
+    	this.handleCloseModal = this.handleCloseModal.bind(this);
+    	this.handleChange = this.handleChange.bind(this);
+    	this.handleChangeDate = this.handleChangeDate.bind(this);
+    	this.handleUpdate = this.handleUpdate.bind(this);
   	}
+
+  	handleChange(event) {
+	    this.setState({ [event.target.id]: event.target.value }
+	    	);
+	}
+
+	handleChangeDate(date){
+	    this.setState({taskDate: date }
+	    	);
+	}
 
 	componentDidMount() {
 		this.getTasks();
@@ -30,12 +54,91 @@ class Admin extends Component {
 		});
 	}
 
-	editTask(item) {
-		//go to Add Task form
-		hashHistory.push('/addtask/');
-		console.log(item._id);
-		
-	}
+	handleOpenModal (item) {
+    console.log(item);
+    this.setState(
+    		{ 	
+    		showModal: true,
+	    		_id: item._id,
+	    		text: item.text ? item.text : "",
+	    		taskDate: moment(item.taskDate),
+	    		recurFrequency: item.recurFrequency ? item.recurFrequency : "",
+	    		recurAmount: item.recurAmount ? item.recurAmount : "",
+	        	recurBetween: item.recurBetween ? item.recurBetween : ""
+        		
+    		}
+    	);
+    
+  	}
+  
+  	handleCloseModal () {
+    this.setState({ showModal: false });
+  	}
+
+  	handleUpdate (event) {
+  		event.preventDefault();
+  		console.log(this.state)
+
+  		const { _id , text, recurFrequency, recurAmount, recurBetween } = this.state;
+    	const taskDate = this.state.taskDate;
+    	var taskObj = {};
+
+    	console.log(_id);
+
+    if (recurFrequency === "none" || recurFrequency === "") {
+      taskObj = {
+      	_id: _id,
+        text: text,
+        taskDate: taskDate, //due today, basically, pulled from Component
+        recurAmount: 1
+      };
+
+	if (moment(taskDate).isAfter(moment(), 'day')) {
+        //if date !== today, nextDate = taskdate. If equals, then will nullify on complete. 
+        const nextDate = taskDate; //equals "taskdate"
+        console.log("hit me!");
+        taskObj.active = false;
+        taskObj.nextDate = nextDate;
+      } 
+
+    } else {
+      //calcs when the next one is. 
+      taskObj = {
+      	_id: _id,
+        text: text,
+        taskDate: taskDate,
+        recurAny: true,
+        recurFrequency: recurFrequency,
+        recurAmount: recurAmount,
+        recurBetween: recurBetween
+      };
+
+       //Start future vs. start today. 
+      if (!(moment(taskDate).isSame(moment(), 'day'))) {
+        //if date !== today, nextDate = taskdate. If equals, then will nullify on complete. 
+        const nextDate = taskDate; //equals "taskdate"
+        taskObj.active = false;
+        taskObj.nextDate = nextDate;
+
+      //start today. 
+      } else {
+        //calcs when the next one is, in "nextDate"
+        const recursX = recurBetween === "" ? 1 : recurBetween;
+
+        const nextDate = taskDate.clone().add(recursX, recurFrequency).format();
+
+        taskObj.nextDate = nextDate;
+      }
+    }
+
+    console.log(taskObj);
+
+    API.taskUpdate(taskObj).then( res => {
+      console.log("Updating the task:", res.data);
+    }).then(this.handleCloseModal())
+      .then(this.getTasks());
+
+  	}
 
 	deleteTodos(item) {
 	    API.deleteTask(item)
@@ -48,10 +151,17 @@ class Admin extends Component {
 
 	render() {
 
+<<<<<<< HEAD
+		const dailyTodos = this.state.tasks.filter(item => item.recurFrequency === 'day');
+	    const weeklyTodos = this.state.tasks.filter(item => item.recurFrequency === 'week');
+	    const monthlyTodos = this.state.tasks.filter(item => item.recurFrequency === 'month');
+	    const scheduledTodos = this.state.tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true);
+=======
 			const dailyTodos = this.state.tasks.filter(item => item.recurFrequency === 'day' && item.taskDate !== null);
 	    const weeklyTodos = this.state.tasks.filter(item => item.recurFrequency === 'week' && item.taskDate !== null);
 	    const monthlyTodos = this.state.tasks.filter(item => item.recurFrequency === 'month' && item.taskDate !== null);
 	    const scheduledTodos = this.state.tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true && item.recurAny === false);
+>>>>>>> 66b00a4a51d831d5c4b988df053ff0e84b177851
 	    const completedTodos = this.state.tasks.filter(item => item.taskDate === null && item.active === false);
 
 	    return (
@@ -65,7 +175,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            <AdminPanel todos={dailyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
+	            <AdminPanel todos={dailyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} openModal={this.handleOpenModal}/> 
 	          </ul>
 	        </div>
 	      </div>
@@ -113,6 +223,109 @@ class Admin extends Component {
 	          </ul>
 	        </div>
 	      </div>
+	      <ReactModal 
+           isOpen={this.state.showModal}
+           contentLabel="Minimal Modal Example"
+           style={{
+              content: {
+                top: '15%',
+                left: '25%',
+                right: '25%',
+              }
+            }}
+        > 
+        
+          <button onClick={this.handleCloseModal} className="btn btn-xs btn-default">X</button>
+          <div className="panel panel-success">
+        <div className="panel-heading">
+          <h3 className="panel-title">Update Form</h3>
+        </div>
+        <div className="panel-body">
+          <form onSubmit={this.handleUpdate}>
+            <div className="form-group">
+               
+             <h4>Describe your task</h4>
+             <input
+               value={this.state.text}
+               type="text"
+               className="form-control"
+               id="text"
+               onChange={this.handleChange}
+               required
+
+             />
+
+             <h4>Recurs</h4><p><i>Not required</i></p>
+             <div className="radio">
+               <label>
+                 <input type="radio" value={'none'} id='recurFrequency' 
+                 checked={this.state.recurFrequency === 'none'}
+                 onChange={this.handleChange} />
+                 None
+               </label>
+             </div>
+             <div className="radio">
+               <label>
+                 <input type="radio" value='day' id='recurFrequency'
+                 checked={this.state.recurFrequency === 'day'}
+                 onChange={this.handleChange} />
+                 Daily
+               </label>
+             </div>
+             <div className="radio">
+               <label>
+                 <input type="radio" value='week' id='recurFrequency'
+                 checked={this.state.recurFrequency === 'week'}
+                 onChange={this.handleChange} />
+                 Weekly
+               </label>
+             </div>
+             <div className="radio">
+               <label>
+                 <input type="radio" value='month' id='recurFrequency'
+                 checked={this.state.recurFrequency === 'month'}
+                 onChange={this.handleChange} />
+                 Monthly
+               </label>
+             </div>
+
+              <h4>Repeat for{' '}
+                <input type="text" pattern="[\d*]"
+                  onInput={this.handleChange}
+                  size="2"
+                  id="recurAmount"
+                  value={this.state.recurAmount} />
+                  {this.state.recurFrequency === "none" ? "" : this.state.recurFrequency+"s"}.
+              </h4>
+
+              <h4>Recur every{' '}
+                <input type="text" pattern="[\d*]" 
+                  onInput={this.handleChange}
+                  size="2"
+                  id="recurBetween"
+                  value={this.state.recurBetween} />
+                {this.state.recurFrequency  === "none" ? "" : this.state.recurFrequency+"s"}.
+              </h4>
+
+              <h4>Task Date</h4>
+              <p><i>Start date if recurring, or one time event</i></p>
+              <DatePicker
+                selected={this.state.taskDate}
+                onChange={this.handleChangeDate}
+              />
+              <hr />
+              <button
+                 type="submit"
+                 className="btn btn-success"
+              >Update Task</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+          
+    </ReactModal>
+	      
 	    </div>
 	  );
 	}
@@ -126,5 +339,3 @@ const styles = {
 
 // Exporting this component as the default (only) export
 export default Admin;
-
-

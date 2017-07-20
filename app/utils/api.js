@@ -62,6 +62,7 @@ const API = {
   },
 
   taskUpdate: function(task) {
+    const {_id} = task;
     return axios.patch(`/api/tasks/${_id}`, task);
   },
 
