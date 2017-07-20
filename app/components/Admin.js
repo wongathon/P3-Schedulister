@@ -216,6 +216,7 @@ class Admin extends Component {
 	      </div>
 	      <ReactModal 
            isOpen={this.state.showModal}
+           contentLabel="Update Modal"
            style={{
               content: {
                 left: '25%',
