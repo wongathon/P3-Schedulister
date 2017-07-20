@@ -11,6 +11,12 @@ const Navbar = () => {
           <li><Link to='/admin'>My Todos Admin</Link></li>
           <li><Link to='/useradmin'>My Profile</Link></li>
         </ul>
+        <br/>
+        <ul className="nav nav-pills nav-stacked">
+          <li><Link to='/logout'>Logout</Link></li>
+          <li><Link to='/login/user'>Login</Link></li>
+          <li><Link to='/signup/user'>Create Account</Link></li>
+        </ul>
       </div>
     )
 }

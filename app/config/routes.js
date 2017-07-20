@@ -6,6 +6,8 @@ import Home from '../components/Todohome';
 import AddTask from '../components/Addtask';
 import Admin from '../components/Admin';
 import UserAdmin from '../components/UserAdmin';
+import Login from '../components/Login';
+import SignUp from '../components/SignUp';
 
 const createRoutes = () => {
   return (
@@ -14,7 +16,10 @@ const createRoutes = () => {
       <Route path="/addtask" component={AddTask} />
       <Route path="/admin" component={Admin} />
       <Route path="/useradmin" component={UserAdmin} />
-    </Route>
+      <Route path="/logout" component={Template} />
+      <Route path="/login/user" component={Login} />
+      <Route path="/signup/user" component={SignUp} />
+     </Route>
   )
 };
 
