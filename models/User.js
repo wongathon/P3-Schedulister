@@ -27,7 +27,6 @@ var userSchema = new Schema({
   },
   passwordc: {
     type: String,
-    required: "Password is Required"
   },
 
   userCreated: {
@@ -43,30 +42,16 @@ var userSchema = new Schema({
 
 });
 
-userSchema.methods.getUserByUsername = function(username, callback){
-  var query= {username:username};
-  User.findOne(query, callback);
-};
+ 
 
-userSchema.methods.createUser = function(newUser, callback){
-  bcrypt.genSalt(10, function(err, salt) {
-      bcrypt.hash(newUser.password, salt, function(err, hash) {
-          newUser.password = hash;
-          newUser.save(callback);
-      });
-  });
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
 
 
-userSchema.methods.comparePassword = function(candidatePassword, hash, callback){
-  bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
-      if(err) throw err;
-      callback(null, isMatch);
-  });
-};
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
 
-userSchema.methods.getUserById = function(username, callback){
-  User.findById(id, callback);
 };
 
 
