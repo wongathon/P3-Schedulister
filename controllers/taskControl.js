@@ -13,7 +13,6 @@ module.exports = {
     } else {
       query = (req.params.id ? {_id: req.params.id} : {})
     };
-    console.log("The query is", query);
 
     Task.find(query).sort('taskDate')
       .then( doc => { res.json(doc) 
