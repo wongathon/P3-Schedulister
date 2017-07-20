@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
+import { Route } from 'react-router';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
@@ -15,8 +15,7 @@ class AddTask extends Component {
       recurs: "", //weekly/montly/yearly
       repeatXTimes: "", //until 0
       recurEveryX: "", // x days, weeks, months. 
-      date: moment(),
-      redirectHome: false
+      date: moment()
     };
 
     this.handleChange = this.handleChange.bind(this);
