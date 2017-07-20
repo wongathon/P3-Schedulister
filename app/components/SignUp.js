@@ -43,12 +43,6 @@ class SignUp extends React.Component {
     console.log("hello");
     console.log(body);
     axios.post('/signup/user', body)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
   } 
 
     

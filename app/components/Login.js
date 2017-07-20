@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router';
+import axios from 'axios';
 
 class Loginv2 extends React.Component {
   constructor() {
@@ -30,13 +31,7 @@ class Loginv2 extends React.Component {
     }
     console.log("hello");
     console.log(body);
-    axios.post('/login/user', body)
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    axios.post('/login/user', body);
   } 
   
 
