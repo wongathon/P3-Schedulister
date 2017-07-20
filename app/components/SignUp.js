@@ -32,7 +32,6 @@ class SignUp extends React.Component {
 
   handleSubmit(event) {
   	event.preventDefault();
-    console.log("helpme");
     const { username, email, password, passwordc } = this.state;
     var body = {}
     body={
@@ -41,7 +40,7 @@ class SignUp extends React.Component {
      password: password,
      passwordc: passwordc
     }
-    console.log("hello")
+    console.log("hello");
     console.log(body);
     axios.post('/signup/user', body)
       .then(function (response) {

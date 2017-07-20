@@ -22,22 +22,22 @@ class Loginv2 extends React.Component {
   
   handleSubmit(e){
     e.preventDefault();
-    let url=window.location.href;
-    console.log(url);
-    let userData = {}
-    userData.method ='POST'
-    userData.headers ['Accept']='application/json'
-    userData.headers ['Content-Type'] ='application/json'
-    userData.bodyc = JSON.stringify({
-      username: this.state.username,
-      password: this.state.password
+    const { username, email, password, passwordc } = this.state;
+    var body = {}
+    body={
+     username:username,
+     password: password,
+    }
+    console.log("hello");
+    console.log(body);
+    axios.post('/login/user', body)
+      .then(function (response) {
+        console.log(response);
       })
-    fetch(url, userData).then(function(response) {
-      return response.json()})
-      .then(function(jsonData) {
-        return jsonData
-      })
-  }
+      .catch(function (error) {
+        console.log(error);
+      });
+  } 
   
 
   render() {

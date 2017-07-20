@@ -17,14 +17,14 @@ router.get("*", function(req, res) {
 
 //Passport
 router.get('/signup/user', function(req,res){
-  res.render('/signup');
+  res.render('/signup/user');
 });
 
 router.get('/login/user', function(req, res, next) {
   if(req.isAuthenticated()){
     return next();
   }else {
-    res.redirect('/login');
+    res.redirect('/login/user');
   }
 });
 
