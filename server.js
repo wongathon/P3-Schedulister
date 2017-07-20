@@ -5,6 +5,13 @@ var logger = require("morgan");
 var mongoose = require("mongoose");
 var routes = require('./routes/routes');
 
+var cookieParser = require("cookie-parser");
+var expressValidator = require("express-validator");
+var flash = require("connect-flash");
+var session = require("express-session");
+var passport = require("passport");
+var LocalStrategy = require("passport-local"),Strategy;
+
 // Require Schemas in 'models' folder
 var Task = require("./models/Task");
 var User = require("./models/User");
@@ -24,6 +31,34 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(express.static("./public"));
 
 app.use("/", routes);
+
+
+//NR Addon
+//NR Addons
+app.use(cookieParser());
+app.use(session({secret: 'todoextreme', saveUninitialized: true, resave: true}))
+app.use(expressValidator({
+  errorFormatter: function(param, msg, value) {
+      var namespace = param.split('.')
+      , root    = namespace.shift()
+      , formParam = root;
+
+    while(namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param : formParam,
+      msg   : msg,
+      value : value
+    };
+  }
+}));
+app.use(flash());
+app.use(function(req, res,next){
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+});
 
 // -------------------------------------------------
 if (process.env.MONGODB_URI) {

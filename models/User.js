@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var bcrypt = require("bcryptjs");
 
 var Schema = mongoose.Schema;
 
@@ -24,6 +25,10 @@ var userSchema = new Schema({
       "Password should be at least 6 characters."
     ]
   },
+  passwordc: {
+    type: String,
+    required: "Password is Required"
+  },
 
   userCreated: {
     type: Date,
@@ -38,6 +43,33 @@ var userSchema = new Schema({
 
 });
 
-var User = mongoose.model('User', userSchema);
+userSchema.methods.getUserByUsername = function(username, callback){
+  var query= {username:username};
+  User.findOne(query, callback);
+};
+
+userSchema.methods.createUser = function(newUser, callback){
+  bcrypt.genSalt(10, function(err, salt) {
+      bcrypt.hash(newUser.password, salt, function(err, hash) {
+          newUser.password = hash;
+          newUser.save(callback);
+      });
+  });
+};
+
+
+userSchema.methods.comparePassword = function(candidatePassword, hash, callback){
+  bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
+      if(err) throw err;
+      callback(null, isMatch);
+  });
+};
+
+userSchema.methods.getUserById = function(username, callback){
+  User.findById(id, callback);
+};
+
+
+var User= mongoose.model('User', userSchema);
 
 module.exports = User;
