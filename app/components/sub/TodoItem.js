@@ -4,19 +4,25 @@ import API from '../../utils/api';
 class TodoItem extends Component {
 
   completeTodo(task) {
-    API.taskComplete(task).then(this.props.getTodos);
+    API.taskComplete(task)
+      .then(this.props.getTasks)
+      .then(this.props.getSchedule);
   }
 
   render() {
     const todo = this.props.todo;
+    
+    const recurs = todo.recurFrequency ? ("recurs every " + todo.recurFrequency) : " ";
+    //recurs daily
+    
     return (
       <li className="list-group-item">
-         <button
+         <a
             className="btn btn-success"
             onClick={() => this.completeTodo(todo)}
             style={todo.active ? style.todo : style.done } 
-          />
-          {" "+todo.text}
+          ><i className="fa fa-check"></i></a>{" "+todo.text}
+          <p><i>{recurs}</i></p>
       </li>
     )
   }

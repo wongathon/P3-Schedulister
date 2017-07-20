@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Redirect } from 'react-router';
+import { Route } from 'react-router';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 
@@ -13,10 +13,9 @@ class AddTask extends Component {
     this.state = {
       desc : "",
       recurs: "", //weekly/montly/yearly
-      recurEvery: "", // x days, weeks, months. 
       repeatXTimes: "", //until 0
-      date: moment(),
-      redirectHome: false
+      recurEveryX: "", // x days, weeks, months. 
+      date: moment()
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -35,29 +34,53 @@ class AddTask extends Component {
   handleSubmit(event){
     event.preventDefault();
     
-    const { desc, recurs, recurEvery, repeatXTimes, date } = this.state;
-    var taskObj
+    const { desc, recurs, recurEveryX, repeatXTimes, date } = this.state;
+    var taskObj = {};
 
-    if (recurs === "none" || recurs === "") {
+    //Non-recur vs. Recur
+    if (recurs === "none" || recurs === "") { 
+      
       taskObj = {
         text: desc,
         taskDate: date, //due today, basically, pulled from Component
         recurAmount: 1
       };
 
-    } else {
-      const nextDate = date.clone().add(1, 'day').add(recurEvery, recurs);
+      if (moment(date).isAfter(moment(), 'day')) {
+        //if date !== today, nextDate = taskdate. If equals, then will nullify on complete. 
+        const nextDate = date; //equals "taskdate"
+        console.log("hit me!");
+        taskObj.active = false;
+        taskObj.nextDate = nextDate;
+      } 
 
-      console.log("Next date of recur:", nextDate);
+    } else { // should capture recurs 
 
       taskObj = {
         text: desc,
         taskDate: date,
         recurAny: true,
         recurFrequency: recurs,
-        nextDate: nextDate,
-        recurAmount: repeatXTimes
+        recurAmount: repeatXTimes,
+        recurBetween: recurEveryX,
       };
+
+      //Start future vs. start today. 
+      if (!(moment(date).isSame(moment(), 'day'))) {
+        //if date !== today, nextDate = taskdate. If equals, then will nullify on complete. 
+        const nextDate = date; //equals "taskdate"
+        taskObj.active = false;
+        taskObj.nextDate = nextDate;
+
+      //start today. 
+      } else {
+        //calcs when the next one is, in "nextDate"
+        const recursX = recurEveryX === "" ? 1 : recurEveryX;
+
+        const nextDate = date.clone().add(recursX, recurs).format();
+
+        taskObj.nextDate = nextDate;
+      }
     }
 
     API.saveTask(taskObj).then( res => {
@@ -72,6 +95,10 @@ class AddTask extends Component {
   render() {
 
     return (
+    <div>
+      <div className="page-header">
+        <h2>Add a To-do</h2>
+      </div>
       <div className="panel panel-default">
         <div className="panel-heading">
           <h3 className="panel-title">Add a task!</h3>
@@ -123,24 +150,25 @@ class AddTask extends Component {
                  Monthly
                </label>
              </div>
+              <hr />
+              <h4>Recur{' '}
+                <input type="text" pattern="[\d*]{1,2}"
+                  onInput={this.handleChange}
+                  size="2"
+                  id="repeatXTimes"
+                  value={this.state.repeatXTimes} />
+                  {' '}times. 
+              </h4><p><i>Ex: Enter 6 to remind for 6 days. Leave blank for unlimited times until canceled.</i></p>
 
               <h4>Recur every{' '}
-                <input type="text" pattern="[\d*]" 
+                <input type="text" pattern="[\d*]{1,2}" 
                   onInput={this.handleChange}
                   size="2"
-                  id="recurEvery"
-                  value={this.state.recurEvery} />
+                  id="recurEveryX"
+                  value={this.state.recurEveryX} />
                 {this.state.recurs  === "none" ? "" : this.state.recurs+"s"}.
-              </h4>
-
-              <h4>Repeat for{' '}
-                <input type="text" pattern="[\d*]"
-                  onInput={this.handleChange}
-                  size="2"
-                  id="repeatEvery"
-                  value={this.state.repeatXTimes} />
-                  {this.state.recurs === "none" ? "" : this.state.recurs+"s"}.
-              </h4>
+              </h4><p><i>Ex: Enter 2 for bi-weekly, 6 for every 6 weeks, etc.</i></p>
+              <hr />
 
               <h4>Task Date</h4>
               <p><i>Start date if recurring, or one time event</i></p>
@@ -157,6 +185,7 @@ class AddTask extends Component {
           </form>
         </div>
       </div>
+    </div>
     );
   }
 }

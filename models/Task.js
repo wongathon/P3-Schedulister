@@ -37,10 +37,11 @@ var taskSchema = new Schema({
  // values daily, monthly, weekly. will use checkboxes to set. If NULL, it is ONE TIME
   recurFrequency: String, 
 
-  //amount of time between recurrences.
-  recurAmount: Number
+  //amount of times the event recurs. 3 days in a row/ 4 weeks, etc. 
+  recurAmount: Number,
   
-
+  //amount of time betwen recurs?
+  recurBetween: Number
     
 });
 

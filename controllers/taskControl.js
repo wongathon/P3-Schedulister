@@ -7,14 +7,14 @@ module.exports = {
   index: (req, res) => {
     var query;
 
-    req.query ? (
-      query = req.query 
-    ) : (
+    if (req.query.query) {
+      query = req.query.query;
+      query = JSON.parse(query);
+    } else {
       query = (req.params.id ? {_id: req.params.id} : {})
-    );
+    };
 
-    //look at req.query find function for 
-    Task.find(query)
+    Task.find(query).sort('taskDate')
       .then( doc => { res.json(doc) 
       }).catch( err => { res.json(err)
       });
