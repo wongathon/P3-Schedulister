@@ -60,7 +60,7 @@ class Home extends Component {
     return (
       <div>
         <div className="page-header">
-          <h2>My To-Do List</h2>
+          <h2>My To-do List</h2>
         </div>
           <TodoPanel
             tasks={this.state.tasks}

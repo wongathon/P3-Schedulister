@@ -215,14 +215,15 @@ class Admin extends Component {
 	        </div>
 	      </div>
 	      <ReactModal 
-           isOpen={this.state.showModal}
-           style={{
-              content: {
-                left: '25%',
-                right: '25%'
-              }
-            }}
-        > 
+          isOpen={this.state.showModal}
+          style={{
+            content: {
+              left: '25%',
+              right: '25%'
+            }
+          }}
+          contentLabel="Modal"
+          > 
         
           <button onClick={this.handleCloseModal} className="btn btn-xs btn-default pull-right">X</button>
           <div className="panel panel-success">

@@ -16,8 +16,7 @@ class Loginv2 extends React.Component {
 
   handleChange(e) {
   	e.preventDefault();
-    this.setState({[e.target.name]: e.target.value},  function() {
- 		 console.log(this.state);});
+    this.setState({[e.target.name]: e.target.value});
      }
 
   

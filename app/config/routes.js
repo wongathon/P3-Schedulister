@@ -16,7 +16,6 @@ const createRoutes = () => {
       <Route path="/addtask" component={AddTask} />
       <Route path="/admin" component={Admin} />
       <Route path="/useradmin" component={UserAdmin} />
-      <Route path="/logout" component={Template} />
       <Route path="/login/user" component={Login} />
       <Route path="/signup/user" component={SignUp} />
      </Route>

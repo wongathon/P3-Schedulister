@@ -25,9 +25,6 @@ var userSchema = new Schema({
       "Password should be at least 6 characters."
     ]
   },
-  passwordc: {
-    type: String,
-  },
 
   userCreated: {
     type: Date,
