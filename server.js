@@ -3,7 +3,13 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+var cookieParser = require("cookie-parser");
+var expressValidator = require("express-validator");
+var flash = require("connect-flash");
 var routes = require('./routes/routes');
+var session = require("express-session");
+var passport = require("passport");
+var LocalStrategy = require("passport-local"),Strategy;
 
 var cookieParser = require("cookie-parser");
 var expressValidator = require("express-validator");
@@ -28,7 +34,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
+app.configure
+app.use(cookieParser());
+app.use(session({secret: 'todoextreme', saveUninitialized: true, resave: true}));
+app.use(flash());
+
+
+
 app.use(express.static("./public"));
+
+
+
+//NR Addons
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", routes);
 
@@ -84,3 +103,5 @@ db.once("open", function() {
 app.listen(PORT, function() {
   console.log("App listening on PORT: " + PORT);
 });
+
+

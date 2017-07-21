@@ -24,8 +24,8 @@ class SignUp extends React.Component {
 
   handleChange(event) {
   	event.preventDefault();
-    this.setState({[event.target.name]: event.target.value});
-     }
+      this.setState({[event.target.name]: event.target.value});
+    }
 
 
 
@@ -100,7 +100,8 @@ class SignUp extends React.Component {
               <br/>
               <button type="submit" className="btn btn-primary">Create Account</button>  &nbsp;
               <hr />
-              <button><a href="/#/login/user">Already have an account? Click here to Login</a></button>
+              <a className="linker" href="/#/login/user">Already have an account? Click here to Login</a>
+
             </div>
           </form>
         </div>

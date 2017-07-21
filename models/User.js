@@ -25,6 +25,9 @@ var userSchema = new Schema({
       "Password should be at least 6 characters."
     ]
   },
+  passwordc: {
+    type: String,
+  },
 
   userCreated: {
     type: Date,
@@ -38,8 +41,6 @@ var userSchema = new Schema({
   }]
 
 });
-
- 
 
 userSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
