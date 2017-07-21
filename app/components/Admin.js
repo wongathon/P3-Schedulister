@@ -152,7 +152,7 @@ class Admin extends Component {
 			const dailyTodos = this.state.tasks.filter(item => item.recurFrequency === 'day' && item.taskDate !== null);
 	    const weeklyTodos = this.state.tasks.filter(item => item.recurFrequency === 'week' && item.taskDate !== null);
 	    const monthlyTodos = this.state.tasks.filter(item => item.recurFrequency === 'month' && item.taskDate !== null);
-	    const scheduledTodos = this.state.tasks.filter(item => moment(item.taskDate).isAfter(moment(), 'day') === true && item.recurAny === false);
+	    const scheduledTodos = this.state.tasks.filter(item => item.taskDate && item.recurAny === false);
 	    const completedTodos = this.state.tasks.filter(item => item.taskDate === null && item.active === false);
 
 	    return (
@@ -177,7 +177,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            <AdminPanel todos={weeklyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
+	            <AdminPanel todos={weeklyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} openModal={this.handleOpenModal} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -188,7 +188,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            <AdminPanel todos={monthlyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
+	            <AdminPanel todos={monthlyTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} openModal={this.handleOpenModal} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -199,7 +199,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-	            <AdminPanel todos={scheduledTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
+	            <AdminPanel todos={scheduledTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} openModal={this.handleOpenModal} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -216,17 +216,15 @@ class Admin extends Component {
 	      </div>
 	      <ReactModal 
            isOpen={this.state.showModal}
-           contentLabel="Minimal Modal Example"
            style={{
               content: {
-                top: '15%',
                 left: '25%',
-                right: '25%',
+                right: '25%'
               }
             }}
         > 
         
-          <button onClick={this.handleCloseModal} className="btn btn-xs btn-default">X</button>
+          <button onClick={this.handleCloseModal} className="btn btn-xs btn-default pull-right">X</button>
           <div className="panel panel-success">
         <div className="panel-heading">
           <h3 className="panel-title">Update Form</h3>
