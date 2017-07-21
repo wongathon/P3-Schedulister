@@ -39,3 +39,15 @@ const style = {
 };
 
 export default TodoItem
+
+
+// return (
+//       <li className="list-group-item">
+//          <button
+//             className="btn btn-success"
+//             onClick={() => this.completeTodo(todo)}
+//             style={todo.active ? style.todo : style.done } 
+//           /> {" "+todo.text}
+//           <p><i>{recurs}</i></p>
+//       </li>
+//     )
