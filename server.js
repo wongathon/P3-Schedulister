@@ -9,14 +9,7 @@ var flash = require("connect-flash");
 var routes = require('./routes/routes');
 var session = require("express-session");
 var passport = require("passport");
-var LocalStrategy = require("passport-local"),Strategy;
-
-var cookieParser = require("cookie-parser");
-var expressValidator = require("express-validator");
-var flash = require("connect-flash");
-var session = require("express-session");
-var passport = require("passport");
-var LocalStrategy = require("passport-local"),Strategy;
+var LocalStrategy = require("passport-local"),Strategy; 
 
 // Require Schemas in 'models' folder
 var Task = require("./models/Task");

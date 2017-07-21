@@ -1,16 +1,13 @@
 var express = require("express");
 var path = require("path");
 var passport = require("passport");
-var LocalStrategy = require("passport-local"),Strategy;
+var LocalStrategy = require("passport-local").Strategy;
 var User = require("../models/User");
 var apiRoutes = require("./apiRoutes");
 
 var router = new express.Router();
 
 router.use("/api", apiRoutes);
-router.use(function(err, req, res, next) {
-    console.log(err);
-});
 
 router.get("*", function(req, res) {
   res.sendFile(__dirname + "/public/index.html");
@@ -30,11 +27,6 @@ router.get('/login/user', function(req, res, next) {
     res.render('login', { message: req.flash('message') });;
   }
 });
-
-//Main landing page for home to be edited */
-  router.get('/admin', function(req, res){
-    res.render('signup', { message: req.flash('message') });
-  });
 
 router.get('/logout', function(req, res) {
   req.logout();

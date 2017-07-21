@@ -44,7 +44,9 @@ class SignUp extends React.Component {
      password: password
     }
     console.log('user signup info:', body);
-    axios.post('/signup/user', body)
+    axios.post('/signup/user', body).then(
+
+    );
   } 
 
     

@@ -28,9 +28,10 @@ class Loginv2 extends React.Component {
      username:username,
      password: password,
     }
-    console.log("hello");
     console.log(body);
-    axios.post('/login/user', body);
+    axios.post('/login/user', body).then(
+
+    );
   } 
   
 
