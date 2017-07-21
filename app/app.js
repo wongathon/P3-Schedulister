@@ -1,10 +1,5 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Router, hashHistory } from 'react-router'
-import Navigation from './config/routes'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import LoginControl from './config/LoginControl.js'
 
-ReactDOM.render(
-	<Router history={hashHistory}
-	 routes={Navigation}
-	/>, 
-	document.getElementById('root')); 
+ReactDOM.render(<LoginControl />, document.getElementById('root')); 

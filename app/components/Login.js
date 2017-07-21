@@ -15,24 +15,29 @@ class Loginv2 extends React.Component {
   }
 
   handleChange(e) {
-  	e.preventDefault();
     this.setState({[e.target.name]: e.target.value});
-     }
+  }
 
   
   handleSubmit(e){
     e.preventDefault();
     const { username, email, password, passwordc } = this.state;
-    var body = {}
-    body={
-     username:username,
-     password: password,
-    }
-    console.log(body);
-    axios.post('/login/user', body).then(
 
-    );
+    if(password !== passwordc){
+      return alert("Passwords do not match");
+    }
+
+    const body = {
+     username: username,
+     password: password
+    };
+    console.log(body);
+    axios.post('/user/login', body).then(this.handleResponse)
   } 
+
+  handleResponse(res) {
+    this.props.handleResponse(res.data.success);
+  }
   
 
   render() {
