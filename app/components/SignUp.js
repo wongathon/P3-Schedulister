@@ -51,7 +51,7 @@ class SignUp extends React.Component {
     return (
       <div className="panel panel-default">
         <div className="panel-heading">
-          <h3 className="panel-title">Welcome!</h3>
+          <h3 className="panel-title">Welcome! Please Create an Account!</h3>
         </div>
         <div className="panel-body">
           <form action="/signup/user"  onSubmit={this.handleSubmit} method="POST">
@@ -77,9 +77,8 @@ class SignUp extends React.Component {
               </label>
               <br/>
               <button type="submit" className="btn btn-primary">Create Account</button>  &nbsp;
-              <button type="submit" className="btn btn-danger">Cancel</button> 
-              <br/>
-              <button><a href="/#/login/user">Already have an account? Click here to Login</a></button>
+              <hr/>
+              <a className="linker" href="/#/login/user">Already have an account? Click here to Login</a>
             </div>
           </form>
         </div>

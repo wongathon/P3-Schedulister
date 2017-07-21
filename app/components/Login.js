@@ -55,10 +55,12 @@ class Loginv2 extends React.Component {
           </label>
           <br/>
             <button type="submit" className="btn btn-primary">Login</button>  &nbsp;
-            <button type="submit" className="btn btn-danger">Cancel</button> 
+            <button type="reset" className="btn btn-danger"><a href="/">Cancel</a></button> 
           <br/>
-          <a href="/#/signup/user">Click here to create a new account</a>
-        </div>
+          <hr/>
+          <a className="linker" href="/#/signup/user">Click here to create a new account</a>
+          
+         </div>
         </form>
       </div>
       </div>

@@ -8,6 +8,9 @@ var apiRoutes = require("./apiRoutes");
 var router = new express.Router();
 
 router.use("/api", apiRoutes);
+router.use(function(err, req, res, next) {
+    console.log(err);
+});
 
 router.get("*", function(req, res) {
   res.sendFile(__dirname + "/public/index.html");
@@ -16,15 +19,25 @@ router.get("*", function(req, res) {
 
 //Passport
 router.get('/signup/user', function(req,res){
-  res.render('/signup/user');
+  res.render('signup', { message: req.flash('message') });
 });
 
 router.get('/login/user', function(req, res, next) {
   if(req.isAuthenticated()){
     return next();
   }else {
-    res.redirect('/login/user');
+    res.render('login', { message: req.flash('message') });;
   }
+});
+
+//Main landing page for home to be edited */
+  router.get('/admin', function(req, res){
+    res.render('signup', { message: req.flash('message') });
+  });
+
+router.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/login/user');
 });
 
 passport.serializeUser(function(user, done) {
@@ -39,62 +52,63 @@ passport.deserializeUser(function(id, done) {
 
 
 router.post('/login/user', passport.authenticate('local-login', { 
-    successRedirect: '/#',
-    failureRedirect: '/#/login/user',
+    successRedirect: '../',
+    failureRedirect: '../login/user',
     failureFlash: true }),
   function(req,res){
-  	res.redirect("/login/user" + req.user.username);
+   	res.redirect("../login/user" + req.user.username);
   });
 
 
 //signup processing
 router.post('/signup/user', passport.authenticate('local-signup', { 
-    successRedirect: '/#',
-    failureRedirect: '/#/sigunp/user',
+    failureRedirect: '../#/addtask',
     failureFlash: true }),
   function(req,res){
-    res.redirect("/");
+    res.redirect("../../#/admin");
   });
 
 
 
 passport.use('local-signup', new LocalStrategy({passReqToCallback : true},
-  function(req, username, email, password, passwordc) {
-    console.log(req.body);
-    console.log("see");
-    process.nextTick(function() {
-      User.findOne({'username': req.body.username },function(err, username){
-    	if(err) 
-        console.log ("err");
-      if(!username){
-        if(req.body.password !== req.body.passwordc) {
-          console.log(req.body.password);
-          console.log(req.body.passwordc);
-          console.log("passwords do not match");
+function(req, username, password, done) {
+    findOrCreateUser = function(){
+      User.findOne({'username':req.body.username},function(err, username) {
+        if (err){
+          console.log('Error in SignUp: '+ err);
+          return done(err);
         }
-        else {var newUser= new User();
-        newUser.username=req.body.username;
-        newUser.email=req.body.email;
-        newUser.password=newUser.generateHash(req.body.password);
-        newUser.passwordc=req.body.password;
-        newUser.save(function(err) {
-          if (err){
-            console.log('Error in Saving user: '+ err);  
-            throw err;  
-          }
-          console.log('User Registration succesful');    
-        });
-
+        if (username) {
+          console.log('User already exists');
+          return done(null, false, 
+             req.flash('message','User Already Exists'));
+        } 
+        if (password!==req.body.passwordc) {
+          console.log('Passwords do not match');
+          return done(null, false, 
+             req.flash('message','Passwords do not match'));
+        } 
+        else {
+          var newUser= new User();
+          newUser.username=req.body.username;
+          newUser.email=req.body.email;
+          newUser.password=newUser.generateHash(req.body.password);
+          newUser.passwordc=req.body.password;
+          newUser.save(function(err) {
+            if (err){
+              console.log('Error in Completing Signup: '+err);  
+              throw err;  
+            }
+            console.log('User Signup successful');    
+            return done(null, newUser);
+          });
         }
-        
-      }
-    	
-      if (username) {
-          console.log ("User already exists");
-     	}
       });
-    });
-  }));
+    };
+    process.nextTick(findOrCreateUser);
+ }
+ ));
+       
 
 
 //password
