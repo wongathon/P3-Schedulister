@@ -82,14 +82,24 @@ class AddTask extends Component {
         taskObj.nextDate = nextDate;
       }
     }
-
+    // creates new to-do saves to the database
     API.saveTask(taskObj).then( res => {
       console.log("Save task res data:", res.data);
-    }).then(
-      alert("Task submitted! Change me to a modal you peasant!"),
-      //https://stackoverflow.com/questions/41221633/how-to-submit-form-component-in-modal-dialogue-using-antd-react-component-librar
-      this.props.router.push('/')
-    );
+    });
+
+    // jquery func and method to control alert message
+    // and then push to '/' page
+    $('#addAnimate').show().removeClass("fadeOutUp");
+  
+    setTimeout(() => { 
+      $('#addAnimate').addClass("fadeOutUp");
+    }, 3000);
+      
+     setTimeout(() => { 
+        this.props.router.push('/');
+      }, 4000);
+
+
   } 
 
   render() {
@@ -191,9 +201,31 @@ class AddTask extends Component {
           </form>
         </div>
       </div>
+      <div id="addAnimate" className="alert alert-success animated fadeInDown" style={styles.animateDiv2}>
+      <div>
+        <span className="fa-stack fa-lg">
+          <i className="fa fa-square-o fa-stack-2x"></i>
+          <i className="fa fa-check fa-stack-1x"></i>
+        </span>
+          &nbsp;To-do added successfully!
+      </div>
+  </div>
     </div>
     );
   }
 }
+
+const styles = {
+  animateDiv2: {
+    display: 'none',
+    position: 'fixed',
+    top: 0,
+    right: '5%',
+    height: 75,
+    width: 350,
+    padding: 15,
+    textAlign: 'center'
+  }
+};
 
 export default AddTask;
