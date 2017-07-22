@@ -215,7 +215,7 @@ class Admin extends Component {
 	        </div>
 	      </div>
 	      <ReactModal 
-           isOpen={this.state.showModal}
+         isOpen={this.state.showModal}
            contentLabel="Update Modal"
            style={{
               content: {
@@ -224,7 +224,6 @@ class Admin extends Component {
               }
             }}
         > 
-        
           <button onClick={this.handleCloseModal} className="btn btn-xs btn-default pull-right">X</button>
           <div className="panel panel-success">
         <div className="panel-heading">

@@ -1,6 +1,7 @@
 // Include React
 import React, { Component } from 'react'
 import Navbar from './sub/Navbar'
+import { Link } from 'react-router'
 
 // Create the Main component
 class Main extends Component {
@@ -15,6 +16,11 @@ class Main extends Component {
              <Navbar />
             </div>
             <div className="col-md-8 no-float">
+              <nav className="nav justify-content-end pull-right">
+                <Link to='/'><u>Logout</u></Link>{' '}
+                <Link to='/login/user'><u>Login</u></Link>{' '}
+                <Link to='/signup/user'><u>Create Account</u></Link>
+              </nav>
               {this.props.children}
             </div>
           </div>

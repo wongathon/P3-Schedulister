@@ -1,4 +1,5 @@
 var mongoose = require("mongoose");
+var bcrypt = require("bcryptjs");
 
 var Schema = mongoose.Schema;
 
@@ -24,6 +25,9 @@ var userSchema = new Schema({
       "Password should be at least 6 characters."
     ]
   },
+  passwordc: {
+    type: String,
+  },
 
   userCreated: {
     type: Date,
@@ -38,6 +42,17 @@ var userSchema = new Schema({
 
 });
 
-var User = mongoose.model('User', userSchema);
+userSchema.methods.generateHash = function(password) {
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+
+userSchema.methods.validPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+
+};
+
+
+var User= mongoose.model('User', userSchema);
 
 module.exports = User;
