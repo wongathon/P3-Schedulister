@@ -12,7 +12,8 @@ class TodoItem extends Component {
   render() {
     const todo = this.props.todo;
     
-    const recurs = todo.recurFrequency ? ("recurs every " + todo.recurFrequency) : " ";
+    const recurs = todo.recurFrequency ? ("Recurs every " + todo.recurFrequency +".") : " ";
+    const recurAmount = todo.recurAmount ? (todo.recurAmount + " occurences left.") : " ";
     //recurs daily
     
     return (
@@ -21,7 +22,7 @@ class TodoItem extends Component {
             className="btn btn-success"
             onClick={() => this.completeTodo(todo)}
             style={todo.active ? style.todo : style.done } 
-          ><i className="fa fa-check"></i></a>{" "+todo.text}
+          ><i className="fa fa-check"></i></a><b>{" "+todo.text}</b>
           <p><i>{recurs}</i></p>
       </li>
     )

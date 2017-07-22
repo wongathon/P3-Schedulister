@@ -80,7 +80,7 @@ class Admin extends Component {
 
       setTimeout(() => { 
         $('#updateAnimate').addClass("fadeOutUp");
-      }, 2000);
+      }, 1500);
   	}
 
   	handleUpdate (event) {
@@ -292,7 +292,7 @@ class Admin extends Component {
                </div>
 
                 <h4>Repeat for{' '}
-                  <input type="text" pattern="[\d*]"
+                  <input type="text" pattern="[\d*]{1,2}"
                     onInput={this.handleChange}
                     size="2"
                     id="recurAmount"
@@ -301,7 +301,7 @@ class Admin extends Component {
                 </h4>
 
                 <h4>Recur every{' '}
-                  <input type="text" pattern="[\d*]" 
+                  <input type="text" pattern="[\d*]{1,2}" 
                     onInput={this.handleChange}
                     size="2"
                     id="recurBetween"

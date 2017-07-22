@@ -93,11 +93,11 @@ class AddTask extends Component {
   
     setTimeout(() => { 
       $('#addAnimate').addClass("fadeOutUp");
-    }, 3000);
+    }, 1500);
       
      setTimeout(() => { 
         this.props.router.push('/');
-      }, 4000);
+      }, 2000);
 
 
   } 
