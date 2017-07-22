@@ -14,10 +14,10 @@ class AdminPanel extends Component {
           <listItem>{item.text}
             <button className="btn btn-xs btn-danger pull-right"
               onClick={() => this.props.deleteTodos(item._id)}
-              >X</button>
-              {" "}
-            <button className="btn btn-xs btn-primary pull-right" style={styles.spacing}
-              onClick={() => this.props.openModal(item)}>EDIT</button>
+              ><i className="fa fa-trash-o fa-lg"></i>&nbsp;Delete</button>
+
+            <button className="btn btn-xs btn-success pull-right" style={styles.spacing}
+              onClick={() => this.props.openModal(item)}><i className="fa fa-pencil fa-lg"></i>&nbsp;Edit</button>
              <p><i>Next occurs: {item.taskDate ? moment(item.taskDate).format('MMMM Do YYYY') : moment(item.taskCreated).format('MMMM Do YYYY')}&nbsp;&nbsp;</i></p>
           </listItem>
           <hr/>
