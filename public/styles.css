@@ -4,6 +4,10 @@ h2 {
 	color: #5B3256;
 }
 
+h4 {
+  font-family: 'Raleway', sans-serif;
+}
+
 .panel-title {
 	font-family: 'Raleway', sans-serif;
 }
@@ -21,6 +25,11 @@ h3.appTitle {
 html,body,.container {
     height:100%;
 }
+
+a.btn.btn-success {
+  padding: 0px 9px;
+}
+
 .container {
     display:table;
     width: 100%;

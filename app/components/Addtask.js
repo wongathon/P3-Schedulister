@@ -151,31 +151,37 @@ class AddTask extends Component {
                </label>
              </div>
               <hr />
-              <h4>Recur{' '}
-                <input type="text" pattern="[\d*]{1,2}"
-                  onInput={this.handleChange}
-                  size="2"
-                  id="repeatXTimes"
-                  value={this.state.repeatXTimes} />
-                  {' '}times. 
-              </h4><p><i>Ex: Enter 6 to remind for 6 days. Leave blank for unlimited times until canceled.</i></p>
 
-              <h4>Recur every{' '}
-                <input type="text" pattern="[\d*]{1,2}" 
-                  onInput={this.handleChange}
-                  size="2"
-                  id="recurEveryX"
-                  value={this.state.recurEveryX} />
-                {this.state.recurs  === "none" ? "" : this.state.recurs+"s"}.
-              </h4><p><i>Ex: Enter 2 for bi-weekly, 6 for every 6 weeks, etc.</i></p>
-              <hr />
+              {(this.state.recurs !== 'none' || this.state.recurs !== "") ? 
+              (<div>
+                <h4>Recur{' '}
+                  <input type="text" pattern="[\d*]{1,2}"
+                    onInput={this.handleChange}
+                    size="2"
+                    id="repeatXTimes"
+                    value={this.state.repeatXTimes} />
+                    {' '}times. 
+                </h4>
+                <p><i>Ex: Enter 6 to remind for 6 days. Leave blank for unlimited times until canceled.</i></p>
 
-              <h4>Task Date</h4>
-              <p><i>Start date if recurring, or one time event</i></p>
-              <DatePicker
-                selected={this.state.date}
-                onChange={this.handleChangeDate}
-              />
+                <h4>Recur every{' '}
+                  <input type="text" pattern="[\d*]{1,2}" 
+                    onInput={this.handleChange}
+                    size="2"
+                    id="recurEveryX"
+                    value={this.state.recurEveryX} />
+                  {this.state.recurs  === "none" ? "" : this.state.recurs+"s"}.
+                </h4><p><i>Ex: Enter 2 for bi-weekly, 6 for every 6 weeks, etc.</i></p>
+                <hr />
+                <h4>Task Date</h4>
+                <p><i>Start date if recurring, or one time event</i></p>
+                <DatePicker
+                  selected={this.state.date}
+                  onChange={this.handleChangeDate}
+                />
+              </div>)
+              : <br /> }
+              
               <hr />
               <button
                  type="submit"
