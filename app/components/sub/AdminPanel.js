@@ -11,14 +11,14 @@ class AdminPanel extends Component {
     if (todos.length > 0) {
       return todos.map(item => (
         <div key={item._id} style={styles.lineHeight}>
-          <listItem>{item.text}
+          <listItem><div className="col-md-5" style={styles.font}>{item.text}</div>
             <button className="btn btn-xs btn-danger pull-right"
               onClick={() => this.props.deleteTodos(item._id)}
               ><i className="fa fa-trash-o fa-lg"></i>&nbsp;Delete</button>
 
             <button className="btn btn-xs btn-success pull-right" style={styles.spacing}
               onClick={() => this.props.openModal(item)}><i className="fa fa-pencil fa-lg"></i>&nbsp;Edit</button>
-             <p><i>Next occurs: {item.taskDate ? moment(item.taskDate).format('MMMM Do YYYY') : moment(item.taskCreated).format('MMMM Do YYYY')}&nbsp;&nbsp;</i></p>
+             <p><i><span style={styles.fontColor}>Next occurs:</span> {item.taskDate ? moment(item.taskDate).format('dddd, MMMM Do YYYY') : moment(item.taskCreated).format('MMMM Do YYYY')}&nbsp;&nbsp;</i></p>
           </listItem>
           <hr/>
         </div>
@@ -41,6 +41,12 @@ class AdminPanel extends Component {
 const styles = {
   spacing: {
     marginRight: 10,
+  },
+  font: {
+    fontWeight: 'bold',
+  },
+  fontColor: {
+    color: '#BFC3C6',
   }
 };
 

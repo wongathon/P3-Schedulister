@@ -24,6 +24,7 @@
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "material-ui": "^0.18.6",
+    "materialize-css": "^0.100.0",
     "moment": "^2.18.1",
     "mongojs": "^2.4.0",
     "mongoose": "^4.11.1",
