@@ -221,7 +221,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-							<AdminPanel todos={completedTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
+							<AdminPanel todos={completedTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} openModal={this.handleOpenModal} /> 
 	          </ul>
 	        </div>
 	      </div>
