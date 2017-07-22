@@ -8,6 +8,7 @@ class AdminPanel extends Component {
 
     const todos = this.props.todos;
 
+
     if (todos.length > 0) {
       return todos.map(item => (
         <div key={item._id} style={styles.lineHeight}>
@@ -19,7 +20,7 @@ class AdminPanel extends Component {
 
             <button className="btn btn-xs btn-success pull-right" style={styles.spacing}
               onClick={() => this.props.openModal(item)}><i className="fa fa-pencil fa-lg"></i>&nbsp;Edit</button>
-              <p><i><span style={styles.fontColor}>Next occurs:</span> {item.taskDate ? moment(item.taskDate).format('dddd, MMMM Do YYYY') : moment(item.taskCreated).format('MMMM Do YYYY')}&nbsp;&nbsp;</i><i>{' '}<span style={styles.fontColor}>Points:</span>{' '+item.points}</i></p>
+              <p><i><span style={styles.fontColor}>Next occurs:</span> {item.taskDate ? moment(item.taskDate).format('dddd, MMMM Do YYYY') : moment(item.taskCreated).format('MMMM Do YYYY')}&nbsp;&nbsp;</i><i>{' '}<span style={styles.fontColor}>Points:</span>{item.points}</i></p>
           </listItem>
           <hr />
         </div>
