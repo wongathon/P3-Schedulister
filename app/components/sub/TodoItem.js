@@ -13,7 +13,7 @@ class TodoItem extends Component {
     const todo = this.props.todo;
     
     const recurs = todo.recurFrequency ? ("Recurs every " + (todo.recurBetween > 1 ? todo.recurBetween+" " : " ")+todo.recurFrequency + (todo.recurBetween > 1 ? "s.":".")) : " ";
-    const recurAmount = todo.recurAmount > 1 ? (todo.recurAmount + " occurences left.") : ("One-time");
+    const recurAmount = todo.recurAmount ? (todo.recurAmount > 1 ? (todo.recurAmount + " occurences left.") : "One-time" ) : "";
     //recurs daily
     
     return (
