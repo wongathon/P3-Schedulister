@@ -45,11 +45,16 @@ const API = {
       task.taskDate = null;
     }
 
+    if (task.points === null){
+      task.points = 0;
+    }
+
+    task.points++;
     console.log("After complete:", task);
 
     if (task.recurAny === true) {
-      const { _id, active, taskDate, nextDate, recurAmount } = task;
-      return axios.patch(`/api/tasks/${_id}`, {active, taskDate, nextDate, recurAmount });
+      const { _id, active, taskDate, nextDate, recurAmount, points } = task;
+      return axios.patch(`/api/tasks/${_id}`, {active, taskDate, nextDate, recurAmount, points });
     } else {
       const { _id, active, taskDate } = task;
       return axios.patch(`/api/tasks/${_id}`, { active, taskDate });
