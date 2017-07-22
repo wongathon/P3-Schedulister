@@ -73,7 +73,6 @@ class Admin extends Component {
       // closes the modal
       this.setState({ showModal: false });
       // makes another call to database to update client view
-      this.getTasks();
 
       // jquery func and method to control alert message
       $('#updateAnimate').show().removeClass("fadeOutUp");
@@ -81,6 +80,7 @@ class Admin extends Component {
       setTimeout(() => { 
         $('#updateAnimate').addClass("fadeOutUp");
       }, 1500);
+      this.getTasks();
   	}
 
   	handleUpdate (event) {
