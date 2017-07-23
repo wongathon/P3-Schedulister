@@ -47,7 +47,6 @@ class Home extends Component {
         }
         //Panel will take active & today tasks only. 
       });
-      console.log("get Tasks after activated: ", res.data);
       this.setState({ tasks: res.data });
     });
   }

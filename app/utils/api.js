@@ -50,7 +50,6 @@ const API = {
     }
 
     task.points++;
-    console.log("After complete:", task);
 
     if (task.recurAny === true) {
       const { _id, active, taskDate, nextDate, recurAmount, points } = task;
