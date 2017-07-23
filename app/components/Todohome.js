@@ -35,7 +35,12 @@ class Home extends Component {
       //COmplete button should set item.taskdate to NULL for non-recurring, also.  
       res.data.forEach( item => {
                 //returns true if today                       //returns true if created in past. 
-        if( item.active === false && moment(item.taskDate).isSame(moment(), 'day') ) {
+          
+        if ( item.active === true && moment(item.nextDate).isSame(moment(), 'day') ) {
+          item.taskDate = item.nextDate;
+        }
+
+        if ( item.active === false && moment(item.taskDate).isSame(moment(), 'day') ) {
           item.active = true;
           //&& moment(item.taskCreated).isBefore(item.taskDate, 'day')
         }
