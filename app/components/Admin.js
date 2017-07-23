@@ -73,14 +73,14 @@ class Admin extends Component {
       // closes the modal
       this.setState({ showModal: false });
       // makes another call to database to update client view
-      this.getTasks();
 
       // jquery func and method to control alert message
       $('#updateAnimate').show().removeClass("fadeOutUp");
 
       setTimeout(() => { 
         $('#updateAnimate').addClass("fadeOutUp");
-      }, 2000);
+      }, 1500);
+      this.getTasks();
   	}
 
   	handleUpdate (event) {
@@ -221,7 +221,7 @@ class Admin extends Component {
 	        </div>
 	        <div className="panel-body">
 	          <ul className="list-group">
-							<AdminPanel todos={completedTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} /> 
+							<AdminPanel todos={completedTodos} editTask={this.editTask} deleteTodos={this.deleteTodos} openModal={this.handleOpenModal} /> 
 	          </ul>
 	        </div>
 	      </div>
@@ -292,7 +292,7 @@ class Admin extends Component {
                </div>
 
                 <h4>Repeat for{' '}
-                  <input type="text" pattern="[\d*]"
+                  <input type="text" pattern="[\d*]{1,2}"
                     onInput={this.handleChange}
                     size="2"
                     id="recurAmount"
@@ -301,7 +301,7 @@ class Admin extends Component {
                 </h4>
 
                 <h4>Recur every{' '}
-                  <input type="text" pattern="[\d*]" 
+                  <input type="text" pattern="[\d*]{1,2}" 
                     onInput={this.handleChange}
                     size="2"
                     id="recurBetween"

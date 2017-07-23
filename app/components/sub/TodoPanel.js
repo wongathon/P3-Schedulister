@@ -14,6 +14,8 @@ class TodoPanel extends Component {
       }
     });
 
+    console.log(activeTodos);
+
     if (activeTodos.length > 0) {
       return activeTodos.map(task => (
         <TodoItem 

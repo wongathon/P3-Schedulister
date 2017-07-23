@@ -23,6 +23,10 @@ class AddTask extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidUpdate(){
+
+  }
+
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
@@ -93,11 +97,11 @@ class AddTask extends Component {
   
     setTimeout(() => { 
       $('#addAnimate').addClass("fadeOutUp");
-    }, 3000);
+    }, 1000);
       
      setTimeout(() => { 
         this.props.router.push('/');
-      }, 4000);
+      }, 1200);
 
 
   } 

@@ -19,6 +19,11 @@ var taskSchema = new Schema({
     default: Date.now
   },
 
+  points: {
+    type: Number,
+    default: 0
+  },
+
   //set START DATE of recurrance, or if not recurring, set ONE TIME DATE
   taskDate: Date, 
 
