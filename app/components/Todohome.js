@@ -34,15 +34,16 @@ class Home extends Component {
       //Avoid activating recurring tasks by how? Complete button should shift task date ahead by one is how.
       //COmplete button should set item.taskdate to NULL for non-recurring, also.  
       res.data.forEach( item => {
-                //returns true if today                       //returns true if created in past. 
-          
-        if ( item.active === true && moment(item.nextDate).isSame(moment(), 'day') ) {
-          item.taskDate = item.nextDate;
-        }
 
+          //if missed a recurring, push nextDate forward. 
+        if ( item.recurAny === true && moment(item.nextDate).isSame(moment(), 'day') ) {
+          const recurBet = task.recurBetween === null ? 1 : task.recurBetween;  //handles if recurXTimes was null in Task Obj. 
+          task.taskDate = task.nextDate;
+          task.nextDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();
+        }
+                //activates true if today        
         if ( item.active === false && moment(item.taskDate).isSame(moment(), 'day') ) {
           item.active = true;
-          //&& moment(item.taskCreated).isBefore(item.taskDate, 'day')
         }
         //Panel will take active & today tasks only. 
       });
