@@ -36,9 +36,9 @@ class Home extends Component {
       res.data.forEach( item => {
 
           //if missed a recurring, push nextDate forward. 
-        if ( item.recurAny === true && moment(item.nextDate).isSame(moment(), 'day') ) {
+        if ( item.recurAny === true && moment(item.nextDate).isBefore(moment(), 'day') ) {
           const recurBet = item.recurBetween === null ? 1 : item.recurBetween;  //handles if recurXTimes was null in Task Obj. 
-          item.taskDate = item.nextDate;
+          item.taskDate = moment();
           item.nextDate = moment(item.taskDate).clone().add(recurBet, item.recurFrequency).format();
         }
                 //activates true if today        
