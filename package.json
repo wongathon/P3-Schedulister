@@ -1,7 +1,7 @@
 {
   "name": "todolist-extreme",
   "version": "1.0.0",
-  "description": "",
+  "description": "Schedulister is a task-management app and self-improvement tool, meant to take the setup of a daily to-do list out of the user's hands.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/wongathon/P3-Todolist.git"
+    "url": "git+https://github.com/wongathon/P3-Schedulister.git"
   },
   "author": "ASW",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wongathon/P3-Todolist/issues"
+    "url": "https://github.com/wongathon/P3-Schedulister/issues"
   },
-  "homepage": "https://github.com/wongathon/P3-Todolist#readme",
+  "homepage": "https://github.com/wongathon/P3-Schedulister#readme",
   "dependencies": {
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
