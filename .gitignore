@@ -1,3 +1,4 @@
 node_modules
 get-it-done
 .DS_Store
+public/bundle.js
