@@ -68,7 +68,6 @@ class Admin extends Component {
 	handleCloseModal () {
     this.setState({ showModal: false });
     this.getTasks();
-    // jquery func and method to control alert message
 	}
 
 	handleUpdate (event) {
@@ -220,13 +219,14 @@ class Admin extends Component {
         content: {
           top: '1%',
           left: '25%',
-          right: '25%'
+          right: '25%',
+          bottom: '14%'
         }
       }}> 
         
       <button 
         onClick={this.handleCloseModal} 
-        className="btn btn-xs btn-primary pull-right" 
+        className="btn btn-xs btn-success pull-right" 
         style={styles.margin}>X
       </button>
       <div className="panel panel-success">
