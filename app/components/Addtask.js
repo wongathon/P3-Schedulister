@@ -23,10 +23,6 @@ class AddTask extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidUpdate(){
-
-  }
-
   handleChange(event) {
     this.setState({ [event.target.id]: event.target.value });
   }
@@ -94,15 +90,12 @@ class AddTask extends Component {
     // jquery func and method to control alert message
     // and then push to '/' page
     $('#addAnimate').show().removeClass("fadeOutUp");
-  
     setTimeout(() => { 
       $('#addAnimate').addClass("fadeOutUp");
-    }, 1000);
-      
+    }, 1500);
      setTimeout(() => { 
         this.props.router.push('/');
-      }, 1200);
-
+      }, 1500);
 
   } 
 
@@ -205,15 +198,17 @@ class AddTask extends Component {
           </form>
         </div>
       </div>
+
       <div id="addAnimate" className="alert alert-success animated fadeInDown" style={styles.animateDiv2}>
-      <div>
-        <span className="fa-stack fa-lg">
-          <i className="fa fa-square-o fa-stack-2x"></i>
-          <i className="fa fa-check fa-stack-1x"></i>
-        </span>
-          &nbsp;To-do added successfully!
+        <div>
+          <span className="fa-stack fa-lg">
+            <i className="fa fa-square-o fa-stack-2x"></i>
+            <i className="fa fa-check fa-stack-1x"></i>
+          </span>
+            &nbsp;To-do added successfully!
+        </div>
       </div>
-  </div>
+
     </div>
     );
   }

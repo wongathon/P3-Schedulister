@@ -52,7 +52,6 @@ class Admin extends Component {
 	}
 
 	handleOpenModal (item) {
-    console.log(item);
     this.setState(
     	{ 	
   			showModal: true,
@@ -70,11 +69,6 @@ class Admin extends Component {
     this.setState({ showModal: false });
     this.getTasks();
     // jquery func and method to control alert message
-    $('#updateAnimate').show().removeClass("fadeOutUp");
-
-    setTimeout(() => { 
-      $('#updateAnimate').addClass("fadeOutUp");
-    }, 1500);
 	}
 
 	handleUpdate (event) {
@@ -84,8 +78,6 @@ class Admin extends Component {
 		const { _id , text, recurFrequency, recurAmount, recurBetween } = this.state;
   	const taskDate = this.state.taskDate;
   	var taskObj = {};
-
-  	console.log(_id);
 
     if (recurFrequency === "none" || recurFrequency === "") {
       taskObj = {
@@ -132,12 +124,15 @@ class Admin extends Component {
         taskObj.nextDate = nextDate;
       }
     }
-
-    console.log(taskObj);
     
     API.taskUpdate(taskObj).then( res => {
         console.log("Updating the task:", res.data);
         });
+
+    $('#updateAnimate').show().removeClass("fadeOutUp");
+    setTimeout(() => { 
+      $('#updateAnimate').addClass("fadeOutUp");
+    }, 1500);
 
     this.handleCloseModal(); 
   }
