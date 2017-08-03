@@ -22,30 +22,15 @@ class Home extends Component {
     this.getSchedule();
   }
 
-  componentDidUpdate() {
-
-  }
-
   getTasks() {
-    //build axios methods
     API.getTasks().then((res) => {
-      //activate task if date is today, 
-      //created at is in the past. 
-      //Avoid activating recurring tasks by how? Complete button should shift task date ahead by one is how.
-      //COmplete button should set item.taskdate to NULL for non-recurring, also.  
       res.data.forEach( item => {
-
-          //if missed a recurring, push nextDate forward. 
-        // if ( item.recurAny === true && moment(item.nextDate).isBefore(moment(), 'day') ) {
-        //   const recurBet = item.recurBetween === null ? 1 : item.recurBetween;  //handles if recurXTimes was null in Task Obj. 
-        //   item.taskDate = moment();
-        //   item.nextDate = moment(item.taskDate).clone().add(recurBet, item.recurFrequency).format();
-        // }
                 //activates true if today        
         if ( item.active === false && moment(item.taskDate).isSame(moment(), 'day') ) {
           item.active = true;
+          API.taskUpdate(item);
         }
-        //Panel will take active & today tasks only. 
+        //Must push activated tasks back to DB. 
       });
       this.setState({ tasks: res.data });
     });
