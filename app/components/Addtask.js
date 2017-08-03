@@ -95,7 +95,7 @@ class AddTask extends Component {
     }, 1500);
      setTimeout(() => { 
         this.props.router.push('/');
-      }, 1500);
+      }, 1750);
 
   } 
 
