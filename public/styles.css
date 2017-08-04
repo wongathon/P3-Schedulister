@@ -36,6 +36,10 @@ a.btn.btn-success {
   padding: 0px 9px;
 }
 
+a.btn.btn-danger {
+  padding: 0px 9px;
+}
+
 .container {
     display:table;
     width: 100%;

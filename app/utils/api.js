@@ -28,28 +28,43 @@ const API = {
   taskComplete: function(task) {
     task.active = false;  
 
-    //Recurring items, pushes TaskDate forward, calcs NextDate. 
-    //works for d/w/m, bi-daily, etc. 
-    if (task.recurAny === true && (task.recurAmount === null || task.recurAmount > 0)) {
-      const recurBet = task.recurBetween === null ? 1 : task.recurBetween;  //handles if recurXTimes was null in Task Obj. 
 
-      task.taskDate = task.nextDate;//Pushes ahead. Should work????
+    //Crisis case: nextDate is before today. "Needs resuming".
+    //Do not decrement recurAmount. 
+    if (task.recurAny === true && moment(task.nextDate).isBefore(moment(), 'day')) {
+      task.taskDate = moment(); //will be 'resumed' and activated on home Panel.
+      
+    //More common case: taskDate is before today. Missed task, but needs to 
+    //NOT decrement recurAmount and
+    //recalculate nextDate. 
+    } else if (task.recurAny === true && moment(task.taskDate).isBefore(moment(), 'day')) {
+      task.taskDate = task.nextDate; //if nextDate is today, will be activated, else in future and will schedule. 
+    
+    //usual case, adds points and decrements.
+    } else {
+      task.taskDate = task.nextDate; //should handle one-offs. 
+
+      //Decrement/Increment 
+      if (task.recurAmount !== null && task.recurAmount > 0) {
+        task.recurAmount--;
+      }
+
+      if (task.points === null){
+        task.points = 0;
+      }
+
+      task.points++;
+    }
+    //if task = recurAny === true, for sure. 
+    //Shift ahead and recalc nextDate logic. 
+    if (task.recurAny === true && (task.recurAmount === null || task.recurAmount > 0)) {
+      const recurBet = task.recurBetween === null ? 1 : task.recurBetween;  //handles if recurBetween increments was null in Task Obj. 
       task.nextDate = moment(task.taskDate).clone().add(recurBet, task.recurFrequency).format();//oh. Works forward off *new* taskDate. 
     } 
-
-    if (task.recurAmount !== null && task.recurAmount > 0) {
-      task.recurAmount--;
-    }
 
     if (task.recurAmount === 0) { //scheduled tasks in future. 
       task.taskDate = null;
     }
-
-    if (task.points === null){
-      task.points = 0;
-    }
-
-    task.points++;
 
     if (task.recurAny === true) {
       const { _id, active, taskDate, nextDate, recurAmount, points } = task;
