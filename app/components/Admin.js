@@ -86,13 +86,13 @@ class Admin extends Component {
         recurAmount: 1
       };
 
-  	if (moment(taskDate).isAfter(moment(), 'day')) {
-          //if date !== today, nextDate = taskdate. If equals, then will nullify on complete. 
-          const nextDate = taskDate; //equals "taskdate"
-          console.log("hit me!");
-          taskObj.active = false;
-          taskObj.nextDate = nextDate;
-        } 
+    	if (moment(taskDate).isAfter(moment(), 'day')) {
+            //if date !== today, nextDate = taskdate. If equals, then will nullify on complete. 
+            const nextDate = taskDate; //equals "taskdate"
+            console.log("hit me!");
+            taskObj.active = false;
+            taskObj.nextDate = nextDate;
+          } 
 
     } else {
       //calcs when the next one is. 

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from '../../utils/api';
+import moment from "moment";
 
 class TodoItem extends Component {
 
@@ -15,14 +16,23 @@ class TodoItem extends Component {
     const recurs = todo.recurFrequency ? ("Recurs every " + (todo.recurBetween > 1 ? todo.recurBetween+" " : " ")+todo.recurFrequency + (todo.recurBetween > 1 ? "s.":".")) : " ";
     const recurAmount = todo.recurAmount ? (todo.recurAmount > 1 ? (todo.recurAmount + " occurences left.") : "One-time" ) : "";
     //recurs daily
+
+
     
     return (
       <li className="list-group-item">
          <a
-            className="btn btn-success"
+            className={ (moment(todo.taskDate).isBefore(moment(), "day") ) ? "btn btn-danger" : "btn btn-success" }
             onClick={() => this.completeTodo(todo)}
-            style={todo.active ? style.todo : style.done } 
-          ><i className="fa fa-check"></i></a><b>{" "+todo.text}</b>
+          >{ (moment(todo.taskDate).isBefore(moment(), "day") ) ? "OK" : <i className="fa fa-check"></i>}</a><b>{" "+todo.text}</b>
+            {
+              (moment(todo.taskDate).isBefore(moment(), "day")) 
+                ? <span style={style.warn}> Overdue!</span>
+                : ( (moment(todo.nextDate).isBefore(moment(), "day")) 
+                      ? <span style={style.warn}> Reactivate? Will reset starting today.</span>
+                      : ""
+                )
+            }
           <p><i>{recurs}{' '}{recurAmount}</i></p>
       </li>
     )
@@ -34,7 +44,11 @@ const style = {
     cursor: "pointer",
     color: "green"
   },
-  done: {
+  confirm: {
+    cursor: "pointer",
+    color: "red"
+  },
+  warn: {
     color: "red"
   }
 };
