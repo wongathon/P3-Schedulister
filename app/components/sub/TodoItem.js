@@ -26,10 +26,10 @@ class TodoItem extends Component {
             onClick={() => this.completeTodo(todo)}
           >{ (moment(todo.taskDate).isBefore(moment(), "day") ) ? "OK" : <i className="fa fa-check"></i>}</a><b>{" "+todo.text}</b>
             {
-              (moment(todo.taskDate).isBefore(moment(), "day")) 
-                ? <span style={style.warn}> Overdue!</span>
-                : ( (moment(todo.nextDate).isBefore(moment(), "day")) 
-                      ? <span style={style.warn}> Reactivate? Will reset starting today.</span>
+              (moment(todo.nextDate).isBefore(moment(), "day")) 
+                ? <span style={style.warn}> Reactivate? Will reset starting today.</span>
+                : ( (moment(todo.taskDate).isBefore(moment(), "day")) 
+                      ? <span style={style.warn}> Overdue!</span>
                       : ""
                 )
             }
